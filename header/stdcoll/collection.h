@@ -1,20 +1,24 @@
 #ifndef __STD_COLL_H__
 #define __STD_COLL_H__
 
+#include <stdio.h>
+
 typedef struct std_collection std_collection;
 
-int Add(std_collection *std_coll, const void *obj);
+int Add(std_collection *, const void *obj);
 
-void * Remove(std_collection *std_coll, const void *obj);
+void * Remove(std_collection *, const void *obj);
 
-void Iterate(std_collection *std_coll, void (*iterate_function)(void *const));
+void ToArray(std_collection *, void *output);
 
-int AddAll(std_collection *std_coll, std_collection *const other_coll);
+int AddAll(std_collection *, std_collection *const other_coll);
 
-void Clear(std_collection *std_collection);
+void Clear(std_collection *);
 
-unsigned long Size(std_collection *std_coll);
+size_t Size(std_collection *);
 
-int Contains(std_collection *std_coll);
+int Contains(std_collection *);
+
+void * Cast(std_collection *);
 
 #endif
