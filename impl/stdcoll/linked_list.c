@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 typedef struct stdnode {
-    void *m_obj;
+    const void *m_obj;
     struct stdnode *m_next;
 } stdnode;
 
@@ -16,6 +16,25 @@ typedef struct stdllist {
 } stdllist;
 
 int _Add(stdcoll *coll, const void *obj) {
+    stdllist *llist = Cast(coll);
+
+    stdnode *el = malloc(sizeof(stdnode));
+
+    if (!el) {
+        return 0;
+    }
+
+    el->m_obj = obj;
+    el->m_next = llist->m_back;
+
+    stdnode *prev = llist->m_back->m_next;
+    prev->m_next = el;
+    el->m_next = llist->m_back;
+    llist->m_back->m_next = el;
+
+    llist->m_size++;
+
+    return 1;
 }
 
 void * _Remove(stdcoll *coll, const void *obj) {
@@ -46,7 +65,18 @@ void * _CastCollection(stdcoll *coll) {
 }
 
 void * _GetAtIndex(stdlist *list, const int idx) {
+    stdllist *el = CastList(list);
+    
+    int i;
+    stdnode *t = el->m_front->m_next;
 
+    for (i = 0; i < idx && t != el->m_back; i++, t = t->m_next);
+
+    if (t == el->m_back) {
+        return NULL;
+    }
+
+    return (void *) t->m_obj;
 }
 
 void * _Front(stdlist *list) {

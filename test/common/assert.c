@@ -12,7 +12,7 @@ static const int FAILURE = 1;
 
 void assertd(int condition, const char *description) {
     if (condition) {
-        longjmp(jmp, ASSERTION_OK);
+
     } else {
         fprintf(stderr, "Assertion failed: %s\n", description);
         longjmp(jmp, ASSERTION_FAILED);
@@ -21,7 +21,7 @@ void assertd(int condition, const char *description) {
 
 void assert(int condition) {
     if (condition) {
-        longjmp(jmp, ASSERTION_OK);
+        
     } else {
         longjmp(jmp, ASSERTION_FAILED);
     }
@@ -32,8 +32,8 @@ int run_assertd(void (*f)(void)) {
 
     if (c == ASSERTION_STARTED) {
         f();
-    } else if (c == ASSERTION_OK) {
-        return SUCCESS;
+    } else if (c == ASSERTION_FAILED) {
+        return FAILURE;
     }
-    return FAILURE;
+    return SUCCESS;
 }
