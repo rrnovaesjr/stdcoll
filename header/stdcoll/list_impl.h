@@ -13,9 +13,8 @@ typedef struct std_list {
     void * (*_RemoveAtIndex)(std_list *std_list, const int idx);
 } std_list;
 
-void _InitializeList(
-    std_list **super,
-    void **std_list_impl,
+std_list * _NewList(
+    void *std_list_impl,
     int (*_Add)(std_collection *, const void *),
     void * (*_Remove)(std_collection *, const void *),
     void (*_ToArray)(std_collection *, void *),

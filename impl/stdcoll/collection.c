@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void _InitializeCollection(
-    std_collection **stdcoll,
-    void **std_coll_impl,
+std_collection * _NewCollection(
+    void *std_coll_impl,
     int (*_Add)(std_collection *, const void *),
     void * (*_Remove)(std_collection *, const void *),
     void (*_ToArray)(std_collection *, void *),
@@ -13,13 +12,17 @@ void _InitializeCollection(
     size_t (*_Size)(std_collection *),
     int (*_Contains)(std_collection *)) {
 
-    (*stdcoll)->std_coll_impl = *std_coll_impl;
-    (*stdcoll)->_Add = _Add;
-    (*stdcoll)->_Remove = _Remove;
-    (*stdcoll)->_ToArray = _ToArray;
-    (*stdcoll)->_Clear = _Clear;
-    (*stdcoll)->_Size = _Size;
-    (*stdcoll)->_Contains = _Contains;
+    std_collection *stdcoll = malloc(sizeof(std_collection));
+
+    stdcoll->std_coll_impl = &(*std_coll_impl);
+    stdcoll->_Add = _Add;
+    stdcoll->_Remove = _Remove;
+    stdcoll->_ToArray = _ToArray;
+    stdcoll->_Clear = _Clear;
+    stdcoll->_Size = _Size;
+    stdcoll->_Contains = _Contains;
+
+    return stdcoll;
 }
 
 int Add(std_collection *std_coll, const void *obj) {

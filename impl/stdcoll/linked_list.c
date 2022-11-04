@@ -84,19 +84,9 @@ std_collection * LinkedListToCollection(std_linked_list *linked_list) {
 
 std_linked_list * NewLinkedList() {
     std_linked_list *_linked_list = malloc(sizeof(std_linked_list));
-    std_list *super = malloc(sizeof(std_list));
     
-    _linked_list->super = super;
-    _linked_list->sz = (size_t) 0;
-    _linked_list->back = malloc(sizeof(_node));
-    _linked_list->front = malloc(sizeof(_node));
-
-    _linked_list->back->_next = _linked_list->front;
-    _linked_list->front->_next = _linked_list->back;
-
-    _InitializeList(
-        &super,
-        &_linked_list,
+    _linked_list->super = _NewList(
+        &(*_linked_list),
         _Add,
         _Remove,
         _ToArray,
@@ -108,6 +98,13 @@ std_linked_list * NewLinkedList() {
         _Front,
         _Back,
         _RemoveAtIndex);
+
+    _linked_list->sz = (size_t) 0;
+    _linked_list->back = malloc(sizeof(_node));
+    _linked_list->front = malloc(sizeof(_node));
+
+    _linked_list->back->_next = _linked_list->front;
+    _linked_list->front->_next = _linked_list->back;
 
     return _linked_list;
 }

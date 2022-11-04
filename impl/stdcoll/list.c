@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void _InitializeList(
-    std_list **this,
-    void **std_list_impl,
+std_list * _NewList(
+    void *std_list_impl,
     int (*_Add)(std_collection *, const void *),
     void * (*_Remove)(std_collection *, const void *),
     void (*_ToArray)(std_collection *, void *),
@@ -18,12 +17,8 @@ void _InitializeList(
     void * (*_Back)(std_list *std_list),
     void * (*_RemoveAtIndex)(std_list *std_list, const int idx)) {
 
-    std_collection *super = malloc(sizeof(std_collection));
-    (*this)->super = super;
-
-
-    _InitializeCollection(
-        &super,
+    std_list *stdlist = malloc(sizeof(std_list));
+    stdlist->super = _NewCollection(
         &(*std_list_impl), 
         _Add, 
         _Remove,
@@ -33,11 +28,13 @@ void _InitializeList(
         _Size, 
         _Contains);
 
-    (*this)->std_list_impl = *std_list_impl;
-    (*this)->_GetAtIndex = _GetAtIndex;
-    (*this)->_Front = _Front;
-    (*this)->_Back = _Back;
-    (*this)->_RemoveAtIndex = _RemoveAtIndex;
+    stdlist->std_list_impl = &(*std_list_impl);
+    stdlist->_GetAtIndex = _GetAtIndex;
+    stdlist->_Front = _Front;
+    stdlist->_Back = _Back;
+    stdlist->_RemoveAtIndex = _RemoveAtIndex;
+
+    return stdlist;
 }
 
 void * GetAtIndex(std_list *std_list, const int idx) {

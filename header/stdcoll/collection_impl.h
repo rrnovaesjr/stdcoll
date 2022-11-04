@@ -15,9 +15,8 @@ typedef struct std_collection {
     int (*_Contains)(std_collection *);
 } std_collection;
 
-void _InitializeCollection(
-    std_collection **super,
-    void **std_coll_impl,
+std_collection * _NewCollection(
+    void *std_coll_impl,
     int (*_Add)(std_collection *, const void *),
     void * (*_Remove)(std_collection *, const void *),
     void (*_ToArray)(std_collection *, void *),
