@@ -3,90 +3,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _node {
-    void *_obj;
-    struct _node *_next;
-} _node;
+typedef struct stdnode {
+    void *m_obj;
+    struct stdnode *m_next;
+} stdnode;
 
-typedef struct std_linked_list {
-    std_list *super;
-    _node *front;
-    _node *back;
-    size_t sz;
-} std_linked_list;
+typedef struct stdllist {
+    stdlist *m_super;
+    stdnode *m_front;
+    stdnode *m_back;
+    size_t m_size;
+} stdllist;
 
-int _Add(std_collection *std_coll, const void *obj) {
+int _Add(stdcoll *coll, const void *obj) {
 }
 
-void * _Remove(std_collection *std_coll, const void *obj) {
+void * _Remove(stdcoll *coll, const void *obj) {
 }
 
-void _ToArray(std_collection *std_coll, void *output) {
-
-}
-
-int _AddAll(std_collection *std_coll, std_collection *const other_coll) {
+void _ToArray(stdcoll *coll, void *output) {
 
 }
 
-void _Clear(std_collection *std_collection) {
+int _AddAll(stdcoll *coll, stdcoll *const other_coll) {
 
 }
 
-size_t _Size(std_collection *std_coll) {
-    printf("Got here!! %lu\n", ((std_linked_list *) Cast(std_coll))->sz);
-    return ((std_linked_list *) Cast(std_coll))->sz;
-}
-
-int _Contains(std_collection *std_coll) {
+void _Clear(stdcoll *coll) {
 
 }
 
-void * _CastCollection(std_collection *std_coll) {
+size_t _Size(stdcoll *coll) {
+    printf("Got here!! %lu\n", ((stdllist *) Cast(coll))->m_size);
+    return ((stdllist *) Cast(coll))->m_size;
+}
+
+int _Contains(stdcoll *coll) {
 
 }
 
-void * _GetAtIndex(std_list *std_list, const int idx) {
+void * _CastCollection(stdcoll *coll) {
 
 }
 
-void * _Front(std_list *std_list) {
+void * _GetAtIndex(stdlist *list, const int idx) {
 
 }
 
-void * _Back(std_list *std_list) {
+void * _Front(stdlist *list) {
 
 }
 
-void * _RemoveAtIndex(std_list *std_list, const int idx) {
+void * _Back(stdlist *list) {
 
 }
 
-void * _CastList(std_list *std_list) {
+void * _RemoveAtIndex(stdlist *list, const int idx) {
 
 }
 
-std_collection * _ListToCollection(std_list *std_list) {
+void * _CastList(stdlist *list) {
 
 }
 
-std_linked_list * _NewLinkedList() {
+stdcoll * _ListToCollection(stdlist *list) {
 
 }
 
-std_list * LinkedListToList(std_linked_list *linked_list) {
-    return linked_list->super;
+stdllist * _NewLinkedList() {
+
 }
 
-std_collection * LinkedListToCollection(std_linked_list *linked_list) {
-    return ListToCollection(linked_list->super);
+stdlist * LinkedListToList(stdllist *linked_list) {
+    return linked_list->m_super;
 }
 
-std_linked_list * NewLinkedList() {
-    std_linked_list *_linked_list = malloc(sizeof(std_linked_list));
+stdcoll * LinkedListToCollection(stdllist *linked_list) {
+    return ListToCollection(linked_list->m_super);
+}
+
+stdllist * NewLinkedList() {
+    stdllist *llist = malloc(sizeof(stdllist));
     
-    _linked_list->super = _NewList(
-        &(*_linked_list),
+    llist->m_super = _NewList(
+        &(*llist),
         _Add,
         _Remove,
         _ToArray,
@@ -99,16 +99,16 @@ std_linked_list * NewLinkedList() {
         _Back,
         _RemoveAtIndex);
 
-    _linked_list->sz = (size_t) 0;
-    _linked_list->back = malloc(sizeof(_node));
-    _linked_list->front = malloc(sizeof(_node));
+    llist->m_size = (size_t) 0;
+    llist->m_back = malloc(sizeof(stdnode));
+    llist->m_front = malloc(sizeof(stdnode));
 
-    _linked_list->back->_next = _linked_list->front;
-    _linked_list->front->_next = _linked_list->back;
+    llist->m_back->m_next = llist->m_front;
+    llist->m_front->m_next = llist->m_back;
 
-    return _linked_list;
+    return llist;
 }
 
-std_linked_list * NewLinkedListFromArray(void *base, size_t amount, size_t size) {
+stdllist * NewLinkedListFromArray(void *base, size_t amount, size_t size) {
 
 }

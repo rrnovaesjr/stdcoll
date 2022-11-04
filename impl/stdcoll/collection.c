@@ -2,61 +2,61 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-std_collection * _NewCollection(
-    void *std_coll_impl,
-    int (*_Add)(std_collection *, const void *),
-    void * (*_Remove)(std_collection *, const void *),
-    void (*_ToArray)(std_collection *, void *),
-    int (*_AddAll)(std_collection *, std_collection *const),
-    void (*_Clear)(std_collection *),
-    size_t (*_Size)(std_collection *),
-    int (*_Contains)(std_collection *)) {
+stdcoll * _NewCollection(
+    void *t_stdcoll_impl,
+    int (*t_Add)(stdcoll *, const void *),
+    void * (*t_Remove)(stdcoll *, const void *),
+    void (*t_ToArray)(stdcoll *, void *),
+    int (*t_AddAll)(stdcoll *, stdcoll *const),
+    void (*t_Clear)(stdcoll *),
+    size_t (*t_Size)(stdcoll *),
+    int (*t_Contains)(stdcoll *)) {
 
-    std_collection *stdcoll = malloc(sizeof(std_collection));
+    stdcoll *coll = malloc(sizeof(stdcoll));
 
-    stdcoll->std_coll_impl = &(*std_coll_impl);
-    stdcoll->_Add = _Add;
-    stdcoll->_Remove = _Remove;
-    stdcoll->_ToArray = _ToArray;
-    stdcoll->_Clear = _Clear;
-    stdcoll->_Size = _Size;
-    stdcoll->_Contains = _Contains;
+    coll->m_stdcoll_impl = &(*t_stdcoll_impl);
+    coll->m_Add = t_Add;
+    coll->m_Remove = t_Remove;
+    coll->m_ToArray = t_ToArray;
+    coll->m_Clear = t_Clear;
+    coll->m_Size = t_Size;
+    coll->m_Contains = t_Contains;
 
-    return stdcoll;
+    return coll;
 }
 
-int Add(std_collection *std_coll, const void *obj) {
-    std_coll->_Add(std_coll, obj);
+int Add(stdcoll *std_coll, const void *obj) {
+    std_coll->m_Add(std_coll, obj);
 }
 
-void * Remove(std_collection *std_coll, const void *obj) {
-    return std_coll->_Remove(std_coll, obj);
+void * Remove(stdcoll *std_coll, const void *obj) {
+    return std_coll->m_Remove(std_coll, obj);
 }
 
-void ToArray(std_collection *std_coll, void *output) {
-    std_coll->_ToArray(std_coll, output);
+void ToArray(stdcoll *std_coll, void *output) {
+    std_coll->m_ToArray(std_coll, output);
 }
 
-int AddAll(std_collection *std_coll, std_collection *const other_coll) {
-    return std_coll->_AddAll(std_coll, other_coll);
+int AddAll(stdcoll *std_coll, stdcoll *const other_coll) {
+    return std_coll->m_AddAll(std_coll, other_coll);
 }
 
-void Clear(std_collection *std_collection) {
-    std_collection->_Clear(std_collection);
+void Clear(stdcoll *std_collection) {
+    std_collection->m_Clear(std_collection);
 }
 
-unsigned long Size(std_collection *std_coll) {
-    return std_coll->_Size(std_coll);
+unsigned long Size(stdcoll *std_coll) {
+    return std_coll->m_Size(std_coll);
 }
 
-int Contains(std_collection *std_coll) {
-    return std_coll->_Contains(std_coll);
+int Contains(stdcoll *std_coll) {
+    return std_coll->m_Contains(std_coll);
 }
 
-void * CastCollection(std_collection *std_coll) {
-    return std_coll->std_coll_impl;
+void * CastCollection(stdcoll *std_coll) {
+    return std_coll->m_stdcoll_impl;
 }
 
-void * Cast(std_collection *std_coll) {
-    return std_coll->std_coll_impl;
+void * Cast(stdcoll *std_coll) {
+    return std_coll->m_stdcoll_impl;
 }

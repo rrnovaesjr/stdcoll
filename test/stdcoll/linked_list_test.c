@@ -7,7 +7,7 @@
 const char description[] = "linked_list_test";
 
 void should_initialize_linked_list() {
-    std_list *linked_list = LinkedListToList(NewLinkedList());
+    stdlist *linked_list = LinkedListToList(NewLinkedList());
 
     assertd(Size(ListToCollection(linked_list)) == 0UL, "Should initialize with size 0");
 
@@ -15,7 +15,7 @@ void should_initialize_linked_list() {
 }
 
 void should_update_linked_list_and_query_elements() {
-    std_list *linked_list = LinkedListToList(NewLinkedList());
+    stdlist *linked_list = LinkedListToList(NewLinkedList());
 
     assertd(Size(ListToCollection(linked_list)) == 0UL, "Should initialize with size 0");
     assertd(Add(ListToCollection(linked_list), 1) == 1, "Should modify linked list when adding 1");
@@ -34,7 +34,7 @@ void should_update_linked_list_and_query_elements() {
 void should_write_elements_to_array() {
     int expected_arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     const int expected_size = sizeof(expected_arr)/sizeof(int);
-    std_list *linked_list = LinkedListToList(NewLinkedListFromArray(expected_arr, expected_size, sizeof(int)));
+    stdlist *linked_list = LinkedListToList(NewLinkedListFromArray(expected_arr, expected_size, sizeof(int)));
     int actual_arr[expected_size];
 
     assertd(Size(ListToCollection(linked_list)) == (unsigned long) expected_size, "Should have 10 elements from the original array");

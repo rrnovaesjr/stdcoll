@@ -3,20 +3,20 @@
 
 #include "stdcoll/collection.h"
 
-typedef struct std_list std_list;
+typedef struct stdlist stdlist;
 
-void * GetAtIndex(std_list *, const int idx);
+void * GetAtIndex(stdlist *, const int idx);
 
-int AddAtIndex(std_list *, void *obj, const int idx);
+int AddAtIndex(stdlist *, void *obj, const int idx);
 
-void * Front(std_list *);
+void * Front(stdlist *);
 
-void * Back(std_list *);
+void * Back(stdlist *);
 
-void * RemoveAtIndex(std_list *, const int idx);
+void * RemoveAtIndex(stdlist *, const int idx);
 
-void * CastList(std_list *);
+void * CastList(stdlist *);
 
-std_collection * ListToCollection(std_list *);
+stdcoll * ListToCollection(stdlist *);
 
 #endif

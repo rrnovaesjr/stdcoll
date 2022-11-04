@@ -5,14 +5,14 @@
 #include "stdcoll/list.h"
 #include <stdio.h>
 
-typedef struct std_linked_list std_linked_list;
+typedef struct stdllist stdllist;
 
-std_linked_list * NewLinkedList();
+stdllist * NewLinkedList();
 
-std_linked_list * NewLinkedListFromArray(void *base, size_t amount, size_t size);
+stdllist * NewLinkedListFromArray(void *base, size_t amount, size_t size);
 
-std_list * LinkedListToList(std_linked_list *);
+stdlist * LinkedListToList(stdllist *);
 
-std_collection * LinkedListToCollection(std_linked_list *);
+stdcoll * LinkedListToCollection(stdllist *);
 
 #endif

@@ -3,22 +3,22 @@
 
 #include <stdio.h>
 
-typedef struct std_collection std_collection;
+typedef struct stdcoll stdcoll;
 
-int Add(std_collection *, const void *obj);
+int Add(stdcoll *, const void *obj);
 
-void * Remove(std_collection *, const void *obj);
+void * Remove(stdcoll *, const void *obj);
 
-void ToArray(std_collection *, void *output);
+void ToArray(stdcoll *, void *output);
 
-int AddAll(std_collection *, std_collection *const other_coll);
+int AddAll(stdcoll *, stdcoll *const other_coll);
 
-void Clear(std_collection *);
+void Clear(stdcoll *);
 
-size_t Size(std_collection *);
+size_t Size(stdcoll *);
 
-int Contains(std_collection *);
+int Contains(stdcoll *);
 
-void * Cast(std_collection *);
+void * Cast(stdcoll *);
 
 #endif

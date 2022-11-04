@@ -3,27 +3,27 @@
 
 #include "stdcoll/collection.h"
 
-typedef struct std_collection {
-    void *std_coll_impl;
+typedef struct stdcoll {
+    void *m_stdcoll_impl;
 
-    int (*_Add)(std_collection *, const void *);
-    void * (*_Remove)(std_collection *, const void *);
-    void (*_ToArray)(std_collection *, void *);
-    int (*_AddAll)(std_collection *, std_collection *const);
-    void (*_Clear)(std_collection *);
-    size_t (*_Size)(std_collection *);
-    int (*_Contains)(std_collection *);
-} std_collection;
+    int (*m_Add)(stdcoll *, const void *);
+    void * (*m_Remove)(stdcoll *, const void *);
+    void (*m_ToArray)(stdcoll *, void *);
+    int (*m_AddAll)(stdcoll *, stdcoll *const);
+    void (*m_Clear)(stdcoll *);
+    size_t (*m_Size)(stdcoll *);
+    int (*m_Contains)(stdcoll *);
+} stdcoll;
 
-std_collection * _NewCollection(
-    void *std_coll_impl,
-    int (*_Add)(std_collection *, const void *),
-    void * (*_Remove)(std_collection *, const void *),
-    void (*_ToArray)(std_collection *, void *),
-    int (*_AddAll)(std_collection *, std_collection *const),
-    void (*_Clear)(std_collection *),
-    size_t (*_Size)(std_collection *),
-    int (*_Contains)(std_collection *)
+stdcoll * _NewCollection(
+    void *t_stdcoll_impl,
+    int (*t_Add)(stdcoll *, const void *),
+    void * (*t_Remove)(stdcoll *, const void *),
+    void (*t_ToArray)(stdcoll *, void *),
+    int (*t_AddAll)(stdcoll *, stdcoll *const),
+    void (*t_Clear)(stdcoll *),
+    size_t (*t_Size)(stdcoll *),
+    int (*t_Contains)(stdcoll *)
 );
 
 #endif

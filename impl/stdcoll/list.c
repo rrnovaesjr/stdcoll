@@ -3,60 +3,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-std_list * _NewList(
-    void *std_list_impl,
-    int (*_Add)(std_collection *, const void *),
-    void * (*_Remove)(std_collection *, const void *),
-    void (*_ToArray)(std_collection *, void *),
-    int (*_AddAll)(std_collection *, std_collection *const),
-    void (*_Clear)(std_collection *),
-    size_t (*_Size)(std_collection *),
-    int (*_Contains)(std_collection *),
-    void * (*_GetAtIndex)(std_list *std_list, const int idx),
-    void * (*_Front)(std_list *std_list),
-    void * (*_Back)(std_list *std_list),
-    void * (*_RemoveAtIndex)(std_list *std_list, const int idx)) {
+stdlist * _NewList(
+    void *t_stdlist_impl,
+    int (*t_Add)(stdcoll *, const void *),
+    void * (*t_Remove)(stdcoll *, const void *),
+    void (*t_ToArray)(stdcoll *, void *),
+    int (*t_AddAll)(stdcoll *, stdcoll *const),
+    void (*t_Clear)(stdcoll *),
+    size_t (*t_Size)(stdcoll *),
+    int (*t_Contains)(stdcoll *),
+    void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
+    void * (*t_Front)(stdlist *std_list),
+    void * (*t_Back)(stdlist *std_list),
+    void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx)) {
 
-    std_list *stdlist = malloc(sizeof(std_list));
-    stdlist->super = _NewCollection(
-        &(*std_list_impl), 
-        _Add, 
-        _Remove,
-        _ToArray, 
-        _AddAll, 
-        _Clear, 
-        _Size, 
-        _Contains);
+    stdlist *list = malloc(sizeof(stdlist));
+    list->m_super = _NewCollection(
+        &(*t_stdlist_impl), 
+        t_Add, 
+        t_Remove,
+        t_ToArray, 
+        t_AddAll, 
+        t_Clear, 
+        t_Size, 
+        t_Contains);
 
-    stdlist->std_list_impl = &(*std_list_impl);
-    stdlist->_GetAtIndex = _GetAtIndex;
-    stdlist->_Front = _Front;
-    stdlist->_Back = _Back;
-    stdlist->_RemoveAtIndex = _RemoveAtIndex;
+    list->m_stdlist_impl = &(*t_stdlist_impl);
+    list->m_GetAtIndex = t_GetAtIndex;
+    list->m_Front = t_Front;
+    list->m_Back = t_Back;
+    list->m_RemoveAtIndex = t_RemoveAtIndex;
 
-    return stdlist;
+    return list;
 }
 
-void * GetAtIndex(std_list *std_list, const int idx) {
-    return std_list->_GetAtIndex(std_list, idx);
+void * GetAtIndex(stdlist *std_list, const int idx) {
+    return std_list->m_GetAtIndex(std_list, idx);
 }
 
-void * Front(std_list *std_list) {
-    return std_list->_Front(std_list);
+void * Front(stdlist *std_list) {
+    return std_list->m_Front(std_list);
 }
 
-void * Back(std_list *std_list) {
-    return std_list->_Back(std_list);
+void * Back(stdlist *std_list) {
+    return std_list->m_Back(std_list);
 }
 
-void * RemoveAtIndex(std_list *std_list, const int idx) {
-    return std_list->_RemoveAtIndex(std_list, idx);
+void * RemoveAtIndex(stdlist *std_list, const int idx) {
+    return std_list->m_RemoveAtIndex(std_list, idx);
 }
 
-void * CastList(std_list *std_list) {
-    return std_list->std_list_impl;
+void * CastList(stdlist *std_list) {
+    return std_list->m_stdlist_impl;
 }
 
-std_collection * ListToCollection(std_list *std_list) {
-    return std_list->super;
+stdcoll * ListToCollection(stdlist *std_list) {
+    return std_list->m_super;
 }

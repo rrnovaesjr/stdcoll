@@ -3,28 +3,28 @@
 
 #include "stdcoll/list.h"
 
-typedef struct std_list {
-    std_collection *super;
-    void *std_list_impl;
+typedef struct stdlist {
+    stdcoll *m_super;
+    void *m_stdlist_impl;
 
-    void * (*_GetAtIndex)(std_list *std_list, const int idx);
-    void * (*_Front)(std_list *std_list);
-    void * (*_Back)(std_list *std_list);
-    void * (*_RemoveAtIndex)(std_list *std_list, const int idx);
-} std_list;
+    void * (*m_GetAtIndex)(stdlist *std_list, const int idx);
+    void * (*m_Front)(stdlist *std_list);
+    void * (*m_Back)(stdlist *std_list);
+    void * (*m_RemoveAtIndex)(stdlist *std_list, const int idx);
+} stdlist;
 
-std_list * _NewList(
-    void *std_list_impl,
-    int (*_Add)(std_collection *, const void *),
-    void * (*_Remove)(std_collection *, const void *),
-    void (*_ToArray)(std_collection *, void *),
-    int (*_AddAll)(std_collection *, std_collection *const),
-    void (*_Clear)(std_collection *),
-    size_t (*_Size)(std_collection *),
-    int (*_Contains)(std_collection *),
-    void * (*_GetAtIndex)(std_list *std_list, const int idx),
-    void * (*_Front)(std_list *std_list),
-    void * (*_Back)(std_list *std_list),
-    void * (*_RemoveAtIndex)(std_list *std_list, const int idx));
+stdlist * _NewList(
+    void *t_stdlist_impl,
+    int (*t_Add)(stdcoll *, const void *),
+    void * (*t_Remove)(stdcoll *, const void *),
+    void (*t_ToArray)(stdcoll *, void *),
+    int (*t_AddAll)(stdcoll *, stdcoll *const),
+    void (*t_Clear)(stdcoll *),
+    size_t (*t_Size)(stdcoll *),
+    int (*t_Contains)(stdcoll *),
+    void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
+    void * (*t_Front)(stdlist *std_list),
+    void * (*t_Back)(stdlist *std_list),
+    void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx));
 
 #endif
