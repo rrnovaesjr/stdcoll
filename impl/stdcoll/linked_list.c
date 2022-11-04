@@ -34,7 +34,6 @@ void _Clear(stdcoll *coll) {
 }
 
 size_t _Size(stdcoll *coll) {
-    printf("Got here!! %lu\n", ((stdllist *) Cast(coll))->m_size);
     return ((stdllist *) Cast(coll))->m_size;
 }
 
