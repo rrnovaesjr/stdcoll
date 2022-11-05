@@ -15,6 +15,8 @@ int AddAll(stdcoll *, stdcoll *const other_coll);
 
 void Clear(stdcoll *);
 
+int IsEmpty(stdcoll *);
+
 size_t Size(stdcoll *);
 
 int Contains(stdcoll *);

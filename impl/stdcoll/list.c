@@ -11,6 +11,7 @@ stdlist * _NewList(
     int (*t_AddAll)(stdcoll *, stdcoll *const),
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
+    int (*t_IsEmpty)(stdcoll *),
     int (*t_Contains)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
@@ -26,8 +27,9 @@ stdlist * _NewList(
         t_Remove,
         t_ToArray, 
         t_AddAll, 
-        t_Clear ? t_Clear : _ClearList, 
+        t_Clear, 
         t_Size, 
+        t_IsEmpty,
         t_Contains,
         t_ReleaseFunction,
         t_EqualsFunction);

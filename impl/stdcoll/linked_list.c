@@ -1,3 +1,4 @@
+#include "stdcoll/collection_impl.h"
 #include "stdcoll/list_impl.h"
 #include "stdcoll/linked_list.h"
 #include "stdcoll/operators.h"
@@ -158,8 +159,9 @@ stdllist * NewLinkedListC(void (*t_ReleaseFunction)(void *), int (*t_EqualsFunct
         _Remove,
         _ToArray,
         _AddAll,
-        NULL, // use super
+        _ClearList,
         _Size,
+        _IsEmpty,
         _Contains,
         _GetAtIndex,
         _Front,
