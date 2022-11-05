@@ -19,6 +19,6 @@ size_t Size(stdcoll *);
 
 int Contains(stdcoll *);
 
-void * Cast(stdcoll *);
+void * CastCollection(stdcoll *);
 
 #endif

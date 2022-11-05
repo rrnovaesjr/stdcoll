@@ -15,20 +15,24 @@ stdlist * _NewList(
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
-    void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx)) {
+    void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx),
+    void (*t_ReleaseFunction)(void *),
+    int (*t_EqualsFunction)(void *, void *)) {
 
     stdlist *list = malloc(sizeof(stdlist));
     list->m_super = _NewCollection(
-        &(*t_stdlist_impl), 
+        list, 
         t_Add, 
         t_Remove,
         t_ToArray, 
         t_AddAll, 
-        t_Clear, 
+        t_Clear ? t_Clear : _ClearList, 
         t_Size, 
-        t_Contains);
+        t_Contains,
+        t_ReleaseFunction,
+        t_EqualsFunction);
 
-    list->m_stdlist_impl = &(*t_stdlist_impl);
+    list->m_stdlist_impl = t_stdlist_impl;
     list->m_GetAtIndex = t_GetAtIndex;
     list->m_Front = t_Front;
     list->m_Back = t_Back;
@@ -59,4 +63,15 @@ void * CastList(stdlist *std_list) {
 
 stdcoll * ListToCollection(stdlist *std_list) {
     return std_list->m_super;
+}
+
+void _ClearList(stdcoll *coll) {
+    size_t size;
+
+    while ((size = Size(coll)) > (size_t) 0) {
+        void *obj = RemoveAtIndex(CastCollection(coll), (int) size - 1);
+        if (obj) {
+            coll->m_ReleaseFunction(obj);
+        }
+    }
 }

@@ -10,17 +10,21 @@ stdcoll * _NewCollection(
     int (*t_AddAll)(stdcoll *, stdcoll *const),
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
-    int (*t_Contains)(stdcoll *)) {
+    int (*t_Contains)(stdcoll *),    
+    void (*t_ReleaseFunction)(void *),
+    int (*t_EqualsFunction)(void *, void *)) {
 
     stdcoll *coll = malloc(sizeof(stdcoll));
 
-    coll->m_stdcoll_impl = &(*t_stdcoll_impl);
+    coll->m_stdcoll_impl = t_stdcoll_impl;
     coll->m_Add = t_Add;
     coll->m_Remove = t_Remove;
     coll->m_ToArray = t_ToArray;
     coll->m_Clear = t_Clear;
     coll->m_Size = t_Size;
     coll->m_Contains = t_Contains;
+    coll->m_ReleaseFunction = t_ReleaseFunction;
+    coll->m_EqualsFunction = t_EqualsFunction;
 
     return coll;
 }
@@ -41,8 +45,8 @@ int AddAll(stdcoll *std_coll, stdcoll *const other_coll) {
     return std_coll->m_AddAll(std_coll, other_coll);
 }
 
-void Clear(stdcoll *std_collection) {
-    std_collection->m_Clear(std_collection);
+void Clear(stdcoll *coll) {
+    coll->m_Clear(coll);
 }
 
 unsigned long Size(stdcoll *std_coll) {
@@ -54,9 +58,5 @@ int Contains(stdcoll *std_coll) {
 }
 
 void * CastCollection(stdcoll *std_coll) {
-    return std_coll->m_stdcoll_impl;
-}
-
-void * Cast(stdcoll *std_coll) {
     return std_coll->m_stdcoll_impl;
 }

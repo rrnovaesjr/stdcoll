@@ -6,6 +6,12 @@
 
 const char description[] = "linked_list_test";
 
+int * supply_int(int n) {
+    int *pn = malloc(sizeof(int));
+    *pn = n;
+    return pn;
+}
+
 void should_initialize_linked_list() {
     stdlist *linked_list = LinkedListToList(NewLinkedList());
 
@@ -17,11 +23,11 @@ void should_initialize_linked_list() {
 void should_update_linked_list_and_query_elements() {
     stdlist *linked_list = LinkedListToList(NewLinkedList());
 
-    int val1 = 1, val2 = 2, val3 = 3, val4 = 4;
-    assertd(Add(ListToCollection(linked_list), &val1) == 1, "Should modify linked list when adding 1");
-    assertd(Add(ListToCollection(linked_list), &val2) == 1, "Should modify linked list when adding 2");
-    assertd(Add(ListToCollection(linked_list), &val3) == 1, "Should modify linked list when adding 3");
-    assertd(Add(ListToCollection(linked_list), &val4) == 1, "Should modify linked list when adding 4");
+    assertd(Add(ListToCollection(linked_list), supply_int(1)) == 1, "Should modify linked list when adding 1");
+    assertd(Add(ListToCollection(linked_list), supply_int(2)) == 1, "Should modify linked list when adding 2");
+    assertd(Add(ListToCollection(linked_list), supply_int(3)) == 1, "Should modify linked list when adding 3");
+    assertd(Add(ListToCollection(linked_list), supply_int(4)) == 1, "Should modify linked list when adding 4");
+    assertd(Size(ListToCollection(linked_list)) == 4UL, "Should have 4 elements");
     assertd(*(int *) GetAtIndex(linked_list, 0) == 1, "Should return 1 at index 0");
     assertd(*(int *) GetAtIndex(linked_list, 1) == 2, "Should return 2 at index 1");
     assertd(*(int *) GetAtIndex(linked_list, 2) == 3, "Should return 3 at index 2");

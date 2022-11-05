@@ -17,6 +17,9 @@ file(GLOB STDCOLL_LINKED_LIST
      ${CMAKE_CURRENT_SOURCE_DIR}/header/stdcoll/linked_list.h
      ${CMAKE_CURRENT_SOURCE_DIR}/impl/stdcoll/linked_list.c)
 
+file(GLOB STDCOLL_OPERATORS ${CMAKE_CURRENT_SOURCE_DIR}/header/stdcoll/operators.h
+     ${CMAKE_CURRENT_SOURCE_DIR}/impl/stdcoll/operators.c)
+
 add_library(stdcoll_st STATIC ${STDCOLL})
 add_library(stdcoll_sh SHARED ${STDCOLL})
 
@@ -26,10 +29,13 @@ add_library(stdcoll_list_sh SHARED ${STDCOLL_LIST})
 add_library(stdcoll_linked_list_st STATIC ${STDCOLL_LINKED_LIST})
 add_library(stdcoll_linked_list_sh SHARED ${STDCOLL_LINKED_LIST})
 
+add_library(stdcoll_operators_st STATIC ${STDCOLL_OPERATORS})
+add_library(stdcoll_operators_sh SHARED ${STDCOLL_OPERATORS})
+
 target_link_libraries(stdcoll_list_st PUBLIC stdcoll_st)
 target_link_libraries(stdcoll_list_sh PUBLIC stdcoll_sh)
-target_link_libraries(stdcoll_linked_list_st PUBLIC stdcoll_list_st)
-target_link_libraries(stdcoll_linked_list_sh PUBLIC stdcoll_list_sh)
+target_link_libraries(stdcoll_linked_list_st PUBLIC stdcoll_list_st PUBLIC stdcoll_operators_st)
+target_link_libraries(stdcoll_linked_list_sh PUBLIC stdcoll_list_sh PUBLIC stdcoll_operators_sh)
 
 enable_testing()
 include(CTest)

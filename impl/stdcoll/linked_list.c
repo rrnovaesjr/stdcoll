@@ -1,11 +1,13 @@
 #include "stdcoll/list_impl.h"
 #include "stdcoll/linked_list.h"
+#include "stdcoll/operators.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct stdnode {
     const void *m_obj;
     struct stdnode *m_next;
+    struct stdnode *m_prev;
 } stdnode;
 
 typedef struct stdllist {
@@ -16,24 +18,20 @@ typedef struct stdllist {
 } stdllist;
 
 int _Add(stdcoll *coll, const void *obj) {
-    stdllist *llist = Cast(coll);
-
-    stdnode *el = malloc(sizeof(stdnode));
-
-    if (!el) {
+    stdllist *llist = CastList(CastCollection(coll));
+    stdnode *last = llist->m_back;
+    stdnode *new_node = malloc(sizeof(stdnode));
+    if (!new_node)
         return 0;
-    }
-
-    el->m_obj = obj;
-    el->m_next = llist->m_back;
-
-    stdnode *prev = llist->m_back->m_next;
-    prev->m_next = el;
-    el->m_next = llist->m_back;
-    llist->m_back->m_next = el;
-
+    new_node->m_prev = last;
+    new_node->m_obj = obj;
+    new_node->m_next = NULL;
+    if (!last)
+        llist->m_front = new_node;
+    else
+        last->m_next = new_node;
     llist->m_size++;
-
+    llist->m_back = new_node;
     return 1;
 }
 
@@ -53,7 +51,8 @@ void _Clear(stdcoll *coll) {
 }
 
 size_t _Size(stdcoll *coll) {
-    return ((stdllist *) Cast(coll))->m_size;
+    stdllist *llist = CastList(CastCollection(coll));
+    return llist->m_size;
 }
 
 int _Contains(stdcoll *coll) {
@@ -65,30 +64,66 @@ void * _CastCollection(stdcoll *coll) {
 }
 
 void * _GetAtIndex(stdlist *list, const int idx) {
-    stdllist *el = CastList(list);
-    
+    stdllist *llist = CastList(list);
     int i;
-    stdnode *t = el->m_front->m_next;
+    stdnode *t = NULL;
+    size_t size = llist->m_size;
 
-    for (i = 0; i < idx && t != el->m_back; i++, t = t->m_next);
-
-    if (t == el->m_back) {
-        return NULL;
+    if (idx < (size >> 1)) {
+        for (i = 0, t = llist->m_front; i < idx && t != NULL; i++, t = t->m_next);
+    } else {
+        for (i = (int) size - 1, t = llist->m_back; i > idx && t != NULL; i--, t = t->m_prev);
     }
 
+    if (t == NULL)
+        return NULL;
     return (void *) t->m_obj;
 }
 
 void * _Front(stdlist *list) {
-
+    return ((stdllist *) CastList(list))->m_front ? 
+        ((stdllist *) CastList(list))->m_front->m_obj : NULL;
 }
 
 void * _Back(stdlist *list) {
-
+    return ((stdllist *) CastList(list))->m_back ? 
+        ((stdllist *) CastList(list))->m_back->m_obj : NULL;
 }
 
 void * _RemoveAtIndex(stdlist *list, const int idx) {
+    stdllist *llist = CastList(list);
+    size_t size = llist->m_size;
 
+    if (idx < 0 || idx >= size)
+        return NULL;
+
+    int i;
+    stdnode *t = NULL;
+
+    if (idx < (size >> 1)) {
+        for (i = 0, t = llist->m_front; i < idx && t != NULL; i++, t = t->m_next);
+    } else {
+        for (i = (int) size - 1, t = llist->m_back; i > idx && t != NULL; i--, t = t->m_prev);
+    }
+
+    void *val = (void *) t->m_obj;
+    stdnode *next = t->m_next;
+    stdnode *prev = t->m_prev;
+
+    if (!prev) {
+        llist->m_front = next;
+    } else {
+        prev->m_next = next;
+    }
+
+    if (!next) {
+        llist->m_back = prev;
+    } else {
+        next->m_prev = prev;
+    }
+    free(t);
+    llist->m_size--;
+    return val;
 }
 
 void * _CastList(stdlist *list) {
@@ -111,31 +146,32 @@ stdcoll * LinkedListToCollection(stdllist *linked_list) {
     return ListToCollection(linked_list->m_super);
 }
 
-stdllist * NewLinkedList() {
+stdllist * NewLinkedListC(void (*t_ReleaseFunction)(void *), int (*t_EqualsFunction)(void *, void *)) {
     stdllist *llist = malloc(sizeof(stdllist));
     
     llist->m_super = _NewList(
-        &(*llist),
+        llist,
         _Add,
         _Remove,
         _ToArray,
         _AddAll,
-        _Clear,
+        NULL, // use super
         _Size,
         _Contains,
         _GetAtIndex,
         _Front,
         _Back,
-        _RemoveAtIndex);
-
+        _RemoveAtIndex,
+        t_ReleaseFunction,
+        t_EqualsFunction);
+    llist->m_front = NULL;
+    llist->m_back = NULL;
     llist->m_size = (size_t) 0;
-    llist->m_back = malloc(sizeof(stdnode));
-    llist->m_front = malloc(sizeof(stdnode));
-
-    llist->m_back->m_next = llist->m_front;
-    llist->m_front->m_next = llist->m_back;
-
     return llist;
+}
+
+stdllist * NewLinkedList() {
+    return NewLinkedListC(free, _NaturalEquals);
 }
 
 stdllist * NewLinkedListFromArray(void *base, size_t amount, size_t size) {
