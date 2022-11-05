@@ -65,10 +65,13 @@ void * _CastCollection(stdcoll *coll) {
 
 void * _GetAtIndex(stdlist *list, const int idx) {
     stdllist *llist = CastList(list);
-    int i;
-    stdnode *t = NULL;
     size_t size = llist->m_size;
 
+    if (idx < 0 || idx >= size)
+        return NULL;
+
+    int i;
+    stdnode *t = NULL;
     if (idx < (size >> 1)) {
         for (i = 0, t = llist->m_front; i < idx && t != NULL; i++, t = t->m_next);
     } else {
