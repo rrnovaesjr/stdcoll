@@ -21,6 +21,8 @@ size_t Size(stdcoll *);
 
 int Contains(stdcoll *);
 
+void Delete(stdcoll *);
+
 void * CastCollection(stdcoll *);
 
 #endif

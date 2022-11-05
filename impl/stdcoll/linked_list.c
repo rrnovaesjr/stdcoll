@@ -84,6 +84,12 @@ void * _GetAtIndex(stdlist *list, const int idx) {
     return (void *) t->m_obj;
 }
 
+void _DeleteLinkedList(stdcoll *coll) {
+    stdllist *llist = CastList(CastCollection(coll));
+    _DeleteList(coll);
+    free(llist);
+}
+
 void * _Front(stdlist *list) {
     return ((stdllist *) CastList(list))->m_front ? 
         ((stdllist *) CastList(list))->m_front->m_obj : NULL;
@@ -163,6 +169,7 @@ stdllist * NewLinkedListC(void (*t_ReleaseFunction)(void *), int (*t_EqualsFunct
         _Size,
         _IsEmpty,
         _Contains,
+        _DeleteLinkedList,
         _GetAtIndex,
         _Front,
         _Back,

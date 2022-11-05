@@ -11,7 +11,8 @@ stdcoll * _NewCollection(
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_IsEmpty)(stdcoll *),
-    int (*t_Contains)(stdcoll *),    
+    int (*t_Contains)(stdcoll *),
+    void (*t_Delete)(stdcoll *),    
     void (*t_ReleaseFunction)(void *),
     int (*t_EqualsFunction)(void *, void *)) {
 
@@ -25,6 +26,7 @@ stdcoll * _NewCollection(
     coll->m_Size = t_Size;
     coll->m_IsEmpty = t_IsEmpty;
     coll->m_Contains = t_Contains;
+    coll->m_Delete = t_Delete;
     coll->m_ReleaseFunction = t_ReleaseFunction;
     coll->m_EqualsFunction = t_EqualsFunction;
 
@@ -63,10 +65,19 @@ int Contains(stdcoll *std_coll) {
     return std_coll->m_Contains(std_coll);
 }
 
+void Delete(stdcoll *coll) {
+    coll->m_Delete(coll);
+}
+
 void * CastCollection(stdcoll *std_coll) {
     return std_coll->m_stdcoll_impl;
 }
 
 int _IsEmpty(stdcoll *coll) {
     return Size(coll) == (size_t) 0;
+}
+
+void _Delete(stdcoll *coll) {
+    Clear(coll);
+    free(coll);
 }

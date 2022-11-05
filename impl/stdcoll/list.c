@@ -13,6 +13,7 @@ stdlist * _NewList(
     size_t (*t_Size)(stdcoll *),
     int (*t_IsEmpty)(stdcoll *),
     int (*t_Contains)(stdcoll *),
+    void (*t_Delete)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
@@ -31,6 +32,7 @@ stdlist * _NewList(
         t_Size, 
         t_IsEmpty,
         t_Contains,
+        t_Delete,
         t_ReleaseFunction,
         t_EqualsFunction);
 
@@ -76,4 +78,10 @@ void _ClearList(stdcoll *coll) {
             coll->m_ReleaseFunction(obj);
         }
     }
+}
+
+void _DeleteList(stdcoll *coll) {
+    stdlist *list = CastCollection(coll);
+    _Delete(coll);
+    free(list);
 }
