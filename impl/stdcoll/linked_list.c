@@ -19,7 +19,7 @@ typedef struct stdllist {
 } stdllist;
 
 int _Add(stdcoll *coll, const void *obj) {
-    stdllist *llist = CastList(CastCollection(coll));
+    stdllist *llist = CastList(CollectionCast(coll));
     stdnode *last = llist->m_back;
     stdnode *new_node = malloc(sizeof(stdnode));
     if (!new_node)
@@ -52,7 +52,7 @@ void _Clear(stdcoll *coll) {
 }
 
 size_t _Size(stdcoll *coll) {
-    stdllist *llist = CastList(CastCollection(coll));
+    stdllist *llist = CastList(CollectionCast(coll));
     return llist->m_size;
 }
 
@@ -85,7 +85,7 @@ void * _GetAtIndex(stdlist *list, const int idx) {
 }
 
 void _DeleteLinkedList(stdcoll *coll) {
-    stdllist *llist = CastList(CastCollection(coll));
+    stdllist *llist = CastList(CollectionCast(coll));
     _DeleteList(coll);
     free(llist);
 }

@@ -5,24 +5,24 @@
 
 typedef struct stdcoll stdcoll;
 
-int Add(stdcoll *, const void *obj);
+int CollectionAdd(stdcoll *, const void *obj);
 
-void * Remove(stdcoll *, const void *obj);
+void * CollectionRemove(stdcoll *, const void *obj);
 
-void ToArray(stdcoll *, void *output);
+void CollectionToArray(stdcoll *, void *output);
 
-int AddAll(stdcoll *, stdcoll *const other_coll);
+int CollectionAddAll(stdcoll *, stdcoll *const other_coll);
 
-void Clear(stdcoll *);
+void CollectionClear(stdcoll *);
 
-int IsEmpty(stdcoll *);
+int CollectionIsEmpty(stdcoll *);
 
-size_t Size(stdcoll *);
+size_t CollectionSize(stdcoll *);
 
-int Contains(stdcoll *);
+int CollectionContains(stdcoll *);
 
-void Delete(stdcoll *);
+void CollectionDelete(stdcoll *);
 
-void * CastCollection(stdcoll *);
+void * CollectionCast(stdcoll *);
 
 #endif

@@ -72,8 +72,8 @@ stdcoll * ListToCollection(stdlist *std_list) {
 void _ClearList(stdcoll *coll) {
     size_t size;
 
-    while ((size = Size(coll)) > (size_t) 0) {
-        void *obj = RemoveAtIndex(CastCollection(coll), (int) size - 1);
+    while ((size = CollectionSize(coll)) > (size_t) 0) {
+        void *obj = RemoveAtIndex(CollectionCast(coll), (int) size - 1);
         if (obj) {
             coll->m_ReleaseFunction(obj);
         }
@@ -81,7 +81,7 @@ void _ClearList(stdcoll *coll) {
 }
 
 void _DeleteList(stdcoll *coll) {
-    stdlist *list = CastCollection(coll);
+    stdlist *list = CollectionCast(coll);
     _Delete(coll);
     free(list);
 }

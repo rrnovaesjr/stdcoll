@@ -33,51 +33,51 @@ stdcoll * _NewCollection(
     return coll;
 }
 
-int Add(stdcoll *std_coll, const void *obj) {
+int CollectionAdd(stdcoll *std_coll, const void *obj) {
     std_coll->m_Add(std_coll, obj);
 }
 
-void * Remove(stdcoll *std_coll, const void *obj) {
+void * CollectionRemove(stdcoll *std_coll, const void *obj) {
     return std_coll->m_Remove(std_coll, obj);
 }
 
-void ToArray(stdcoll *std_coll, void *output) {
+void CollectionToArray(stdcoll *std_coll, void *output) {
     std_coll->m_ToArray(std_coll, output);
 }
 
-int AddAll(stdcoll *std_coll, stdcoll *const other_coll) {
+int CollectionAddAll(stdcoll *std_coll, stdcoll *const other_coll) {
     return std_coll->m_AddAll(std_coll, other_coll);
 }
 
-void Clear(stdcoll *coll) {
+void CollectionClear(stdcoll *coll) {
     coll->m_Clear(coll);
 }
 
-unsigned long Size(stdcoll *std_coll) {
+unsigned long CollectionSize(stdcoll *std_coll) {
     return std_coll->m_Size(std_coll);
 }
 
-int IsEmpty(stdcoll *coll) {
+int CollectionIsEmpty(stdcoll *coll) {
     return coll->m_IsEmpty(coll);
 }
 
-int Contains(stdcoll *std_coll) {
+int CollectionContains(stdcoll *std_coll) {
     return std_coll->m_Contains(std_coll);
 }
 
-void Delete(stdcoll *coll) {
+void CollectionDelete(stdcoll *coll) {
     coll->m_Delete(coll);
 }
 
-void * CastCollection(stdcoll *std_coll) {
+void * CollectionCast(stdcoll *std_coll) {
     return std_coll->m_stdcoll_impl;
 }
 
 int _IsEmpty(stdcoll *coll) {
-    return Size(coll) == (size_t) 0;
+    return CollectionSize(coll) == (size_t) 0;
 }
 
 void _Delete(stdcoll *coll) {
-    Clear(coll);
+    CollectionClear(coll);
     free(coll);
 }
