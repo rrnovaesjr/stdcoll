@@ -28,8 +28,8 @@ stdlist * _NewList(
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
     void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx),
-    void (*t_ReleaseFunction)(void *),
-    int (*t_EqualsFunction)(void *, void *));
+    void (*t_ItemRelease)(void *),
+    int (*t_ItemEquals)(void *, void *));
 
 void _ClearList(stdcoll *coll);
 

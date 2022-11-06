@@ -15,8 +15,8 @@ typedef struct stdcoll {
     int (*m_IsEmpty)(stdcoll *);
     int (*m_Contains)(stdcoll *);
     void (*m_Delete)(stdcoll *);
-    void (*m_ReleaseFunction)(void *);
-    int (*m_EqualsFunction)(void *, void *);
+    void (*m_ItemRelease)(void *);
+    int (*m_ItemEquals)(void *, void *);
 } stdcoll;
 
 stdcoll * _NewCollection(
@@ -30,8 +30,8 @@ stdcoll * _NewCollection(
     int (*t_IsEmpty)(stdcoll *),
     int (*t_Contains)(stdcoll *),
     void (*t_Delete)(stdcoll *),
-    void (*t_ReleaseFunction)(void *),
-    int (*t_EqualsFunction)(void *, void *)
+    void (*t_ItemRelease)(void *),
+    int (*t_ItemEquals)(void *, void *)
 );
 
 int _IsEmpty(stdcoll *);

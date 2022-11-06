@@ -13,8 +13,8 @@ stdcoll * _NewCollection(
     int (*t_IsEmpty)(stdcoll *),
     int (*t_Contains)(stdcoll *),
     void (*t_Delete)(stdcoll *),    
-    void (*t_ReleaseFunction)(void *),
-    int (*t_EqualsFunction)(void *, void *)) {
+    void (*t_ItemRelease)(void *),
+    int (*t_ItemEquals)(void *, void *)) {
 
     stdcoll *coll = malloc(sizeof(stdcoll));
 
@@ -27,8 +27,8 @@ stdcoll * _NewCollection(
     coll->m_IsEmpty = t_IsEmpty;
     coll->m_Contains = t_Contains;
     coll->m_Delete = t_Delete;
-    coll->m_ReleaseFunction = t_ReleaseFunction;
-    coll->m_EqualsFunction = t_EqualsFunction;
+    coll->m_ItemRelease = t_ItemRelease;
+    coll->m_ItemEquals = t_ItemEquals;
 
     return coll;
 }

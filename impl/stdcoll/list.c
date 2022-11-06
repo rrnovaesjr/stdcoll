@@ -18,8 +18,8 @@ stdlist * _NewList(
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
     void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx),
-    void (*t_ReleaseFunction)(void *),
-    int (*t_EqualsFunction)(void *, void *)) {
+    void (*t_ItemRelease)(void *),
+    int (*t_ItemEquals)(void *, void *)) {
 
     stdlist *list = malloc(sizeof(stdlist));
     list->m_super = _NewCollection(
@@ -33,8 +33,8 @@ stdlist * _NewList(
         t_IsEmpty,
         t_Contains,
         t_Delete,
-        t_ReleaseFunction,
-        t_EqualsFunction);
+        t_ItemRelease,
+        t_ItemEquals);
 
     list->m_stdlist_impl = t_stdlist_impl;
     list->m_GetAtIndex = t_GetAtIndex;
@@ -75,7 +75,7 @@ void _ClearList(stdcoll *coll) {
     while ((size = CollectionSize(coll)) > (size_t) 0) {
         void *obj = RemoveAtIndex(CollectionCast(coll), (int) size - 1);
         if (obj) {
-            coll->m_ReleaseFunction(obj);
+            coll->m_ItemRelease(obj);
         }
     }
 }

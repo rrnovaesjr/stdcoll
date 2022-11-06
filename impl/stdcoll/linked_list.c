@@ -156,7 +156,7 @@ stdcoll * LinkedListToCollection(stdllist *linked_list) {
     return ListToCollection(linked_list->m_super);
 }
 
-stdllist * NewLinkedListC(void (*t_ReleaseFunction)(void *), int (*t_EqualsFunction)(void *, void *)) {
+stdllist * NewLinkedListC(void (*t_ItemRelease)(void *), int (*t_ItemEquals)(void *, void *)) {
     stdllist *llist = malloc(sizeof(stdllist));
     
     llist->m_super = _NewList(
@@ -174,8 +174,8 @@ stdllist * NewLinkedListC(void (*t_ReleaseFunction)(void *), int (*t_EqualsFunct
         _Front,
         _Back,
         _RemoveAtIndex,
-        t_ReleaseFunction,
-        t_EqualsFunction);
+        t_ItemRelease,
+        t_ItemEquals);
     llist->m_front = NULL;
     llist->m_back = NULL;
     llist->m_size = (size_t) 0;
