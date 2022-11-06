@@ -7,11 +7,11 @@
 
 typedef struct stdllist stdllist;
 
-stdllist * NewLinkedList();
+stdllist * LinkedList();
 
-stdllist * NewLinkedListFromArray(void *base, size_t amount, size_t size);
+stdllist * LinkedListFromArray(void *base, size_t amount, size_t size);
 
-stdlist * LinkedListToList(stdllist *);
+stdlist * LinkedListSuper(stdllist *);
 
 stdcoll * LinkedListToCollection(stdllist *);
 

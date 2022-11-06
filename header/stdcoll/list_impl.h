@@ -13,7 +13,7 @@ typedef struct stdlist {
     void * (*m_RemoveAtIndex)(stdlist *std_list, const int idx);
 } stdlist;
 
-stdlist * _NewList(
+stdlist * _List(
     void *t_stdlist_impl,
     int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
@@ -31,8 +31,8 @@ stdlist * _NewList(
     void (*t_ItemRelease)(void *),
     int (*t_ItemEquals)(void *, void *));
 
-void _ClearList(stdcoll *coll);
+void _ListClear(stdcoll *coll);
 
-void _DeleteList(stdcoll *coll);
+void _ListDelete(stdcoll *coll);
 
 #endif

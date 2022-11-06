@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-stdlist * _NewList(
+stdlist * _List(
     void *t_stdlist_impl,
     int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
@@ -22,7 +22,7 @@ stdlist * _NewList(
     int (*t_ItemEquals)(void *, void *)) {
 
     stdlist *list = malloc(sizeof(stdlist));
-    list->m_super = _NewCollection(
+    list->m_super = _Collection(
         list, 
         t_Add, 
         t_Remove,
@@ -45,43 +45,43 @@ stdlist * _NewList(
     return list;
 }
 
-void * GetAtIndex(stdlist *std_list, const int idx) {
+void * ListGetAtIndex(stdlist *std_list, const int idx) {
     return std_list->m_GetAtIndex(std_list, idx);
 }
 
-void * Front(stdlist *std_list) {
+void * ListFront(stdlist *std_list) {
     return std_list->m_Front(std_list);
 }
 
-void * Back(stdlist *std_list) {
+void * ListBack(stdlist *std_list) {
     return std_list->m_Back(std_list);
 }
 
-void * RemoveAtIndex(stdlist *std_list, const int idx) {
+void * ListRemoveAtIndex(stdlist *std_list, const int idx) {
     return std_list->m_RemoveAtIndex(std_list, idx);
 }
 
-void * CastList(stdlist *std_list) {
+void * ListCast(stdlist *std_list) {
     return std_list->m_stdlist_impl;
 }
 
-stdcoll * ListToCollection(stdlist *std_list) {
+stdcoll * ListSuper(stdlist *std_list) {
     return std_list->m_super;
 }
 
-void _ClearList(stdcoll *coll) {
+void _ListClear(stdcoll *coll) {
     size_t size;
 
     while ((size = CollectionSize(coll)) > (size_t) 0) {
-        void *obj = RemoveAtIndex(CollectionCast(coll), (int) size - 1);
+        void *obj = ListRemoveAtIndex(CollectionCast(coll), (int) size - 1);
         if (obj) {
             coll->m_ItemRelease(obj);
         }
     }
 }
 
-void _DeleteList(stdcoll *coll) {
+void _ListDelete(stdcoll *coll) {
     stdlist *list = CollectionCast(coll);
-    _Delete(coll);
+    _CollectionDelete(coll);
     free(list);
 }

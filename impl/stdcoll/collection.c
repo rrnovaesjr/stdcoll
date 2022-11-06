@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-stdcoll * _NewCollection(
+stdcoll * _Collection(
     void *t_stdcoll_impl,
     int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
@@ -73,11 +73,11 @@ void * CollectionCast(stdcoll *std_coll) {
     return std_coll->m_stdcoll_impl;
 }
 
-int _IsEmpty(stdcoll *coll) {
+int _CollectionIsEmpty(stdcoll *coll) {
     return CollectionSize(coll) == (size_t) 0;
 }
 
-void _Delete(stdcoll *coll) {
+void _CollectionDelete(stdcoll *coll) {
     CollectionClear(coll);
     free(coll);
 }

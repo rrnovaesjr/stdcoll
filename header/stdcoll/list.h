@@ -5,18 +5,18 @@
 
 typedef struct stdlist stdlist;
 
-void * GetAtIndex(stdlist *, const int idx);
+void * ListGetAtIndex(stdlist *, const int idx);
 
-int AddAtIndex(stdlist *, void *obj, const int idx);
+int ListAddAtIndex(stdlist *, void *obj, const int idx);
 
-void * Front(stdlist *);
+void * ListFront(stdlist *);
 
-void * Back(stdlist *);
+void * ListBack(stdlist *);
 
-void * RemoveAtIndex(stdlist *, const int idx);
+void * ListRemoveAtIndex(stdlist *, const int idx);
 
-void * CastList(stdlist *);
+void * ListCast(stdlist *);
 
-stdcoll * ListToCollection(stdlist *);
+stdcoll * ListSuper(stdlist *);
 
 #endif
