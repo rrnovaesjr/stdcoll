@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 typedef struct stdnode {
-    const void *m_obj;
+    void *m_obj;
     struct stdnode *m_next;
     struct stdnode *m_prev;
 } stdnode;
@@ -18,7 +18,7 @@ typedef struct stdllist {
     size_t m_size;
 } stdllist;
 
-int _Add(stdcoll *coll, const void *obj) {
+int _Add(stdcoll *coll, void *obj) {
     stdllist *llist = CastList(CollectionCast(coll));
     stdnode *last = llist->m_back;
     stdnode *new_node = malloc(sizeof(stdnode));

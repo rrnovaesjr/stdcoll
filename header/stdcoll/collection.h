@@ -5,7 +5,7 @@
 
 typedef struct stdcoll stdcoll;
 
-int CollectionAdd(stdcoll *, const void *obj);
+int CollectionAdd(stdcoll *, void *obj);
 
 void * CollectionRemove(stdcoll *, const void *obj);
 

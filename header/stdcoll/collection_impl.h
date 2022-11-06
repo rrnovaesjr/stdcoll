@@ -6,7 +6,7 @@
 typedef struct stdcoll {
     void *m_stdcoll_impl;
 
-    int (*m_Add)(stdcoll *, const void *);
+    int (*m_Add)(stdcoll *, void *);
     void * (*m_Remove)(stdcoll *, const void *);
     void (*m_ToArray)(stdcoll *, void *);
     int (*m_AddAll)(stdcoll *, stdcoll *const);
@@ -21,7 +21,7 @@ typedef struct stdcoll {
 
 stdcoll * _NewCollection(
     void *t_stdcoll_impl,
-    int (*t_Add)(stdcoll *, const void *),
+    int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
     void (*t_ToArray)(stdcoll *, void *),
     int (*t_AddAll)(stdcoll *, stdcoll *const),

@@ -4,7 +4,7 @@
 
 stdcoll * _NewCollection(
     void *t_stdcoll_impl,
-    int (*t_Add)(stdcoll *, const void *),
+    int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
     void (*t_ToArray)(stdcoll *, void *),
     int (*t_AddAll)(stdcoll *, stdcoll *const),
@@ -33,7 +33,7 @@ stdcoll * _NewCollection(
     return coll;
 }
 
-int CollectionAdd(stdcoll *std_coll, const void *obj) {
+int CollectionAdd(stdcoll *std_coll, void *obj) {
     std_coll->m_Add(std_coll, obj);
 }
 

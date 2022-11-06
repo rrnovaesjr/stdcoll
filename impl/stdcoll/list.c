@@ -5,7 +5,7 @@
 
 stdlist * _NewList(
     void *t_stdlist_impl,
-    int (*t_Add)(stdcoll *, const void *),
+    int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
     void (*t_ToArray)(stdcoll *, void *),
     int (*t_AddAll)(stdcoll *, stdcoll *const),
