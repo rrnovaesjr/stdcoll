@@ -39,8 +39,8 @@ void should_update_linked_list_and_query_elements() {
     ASSERTI_EQ(*(int *) ListGetAtIndex(list, 1), 2);
     ASSERTI_EQ(*(int *) ListGetAtIndex(list, 2), 3);
     ASSERTI_EQ(*(int *) ListGetAtIndex(list, 3), 4);
-    ASSERT_TRUE(!ListGetAtIndex(list, -1));
-    ASSERT_TRUE(!ListGetAtIndex(list, 100));
+    ASSERT_SAME(ListGetAtIndex(list, -1), NULL);
+    ASSERT_SAME(ListGetAtIndex(list, 100), NULL);
     CollectionClear(ListSuper(list));
     ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
     ASSERTI_EQ((int) CollectionSize(ListSuper(list)), 0);

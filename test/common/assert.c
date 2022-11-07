@@ -62,6 +62,11 @@ void asserti_equals(int actual, int expected, int line, const char *file)
     assertd((actual == expected), line, file, "expected %d to be %d", actual, expected);
 }
 
+void assert_same(void *actual, void *expected, int line, const char *file)
+{
+    assertd(actual == expected, line, file, "expected %p to be the same as %p", actual, expected);
+}
+
 int run_assertd(void (*f)(void)) {
     int c = setjmp(jmp);
 
