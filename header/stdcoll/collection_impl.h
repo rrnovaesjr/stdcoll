@@ -28,11 +28,8 @@ stdcoll * _Collection(
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
-    void (*t_Delete)(stdcoll *),
     void (*t_ItemRelease)(void *),
     int (*t_ItemEquals)(void *, void *)
 );
-
-void _CollectionDelete(stdcoll *);
 
 #endif

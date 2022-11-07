@@ -11,6 +11,7 @@ typedef struct stdlist {
     void * (*m_Front)(stdlist *std_list);
     void * (*m_Back)(stdlist *std_list);
     void * (*m_RemoveAtIndex)(stdlist *std_list, const int idx);
+    void (*m_Super_Delete)(stdcoll *coll);
 } stdlist;
 
 stdlist * _List(
@@ -22,7 +23,6 @@ stdlist * _List(
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
-    void (*t_Delete)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
@@ -31,7 +31,5 @@ stdlist * _List(
     int (*t_ItemEquals)(void *, void *));
 
 void _ListClear(stdcoll *coll);
-
-void _ListDelete(stdcoll *coll);
 
 #endif

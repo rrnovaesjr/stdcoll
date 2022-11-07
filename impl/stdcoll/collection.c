@@ -4,6 +4,8 @@
 
 int _CollectionIsEmpty(stdcoll *coll);
 
+void _CollectionDelete(stdcoll *coll);
+
 stdcoll * _Collection(
     void *t_stdcoll_impl,
     int (*t_Add)(stdcoll *, void *),
@@ -13,12 +15,12 @@ stdcoll * _Collection(
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
-    void (*t_Delete)(stdcoll *),    
     void (*t_ItemRelease)(void *),
     int (*t_ItemEquals)(void *, void *)) {
 
     stdcoll *coll = malloc(sizeof(stdcoll));
     coll->m_IsEmpty = _CollectionIsEmpty;
+    coll->m_Delete = _CollectionDelete;
 
     coll->m_stdcoll_impl = t_stdcoll_impl;
     coll->m_Add = t_Add;
@@ -27,7 +29,6 @@ stdcoll * _Collection(
     coll->m_Clear = t_Clear;
     coll->m_Size = t_Size;
     coll->m_Contains = t_Contains;
-    coll->m_Delete = t_Delete;
     coll->m_ItemRelease = t_ItemRelease;
     coll->m_ItemEquals = t_ItemEquals;
 

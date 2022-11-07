@@ -16,6 +16,8 @@ typedef struct stdllist {
     stdnode *m_front;
     stdnode *m_back;
     size_t m_size;
+
+    void (*m_Super_Delete)(stdcoll *coll);
 } stdllist;
 
 int _Add(stdcoll *coll, void *obj) {
@@ -84,9 +86,9 @@ void * _GetAtIndex(stdlist *list, const int idx) {
     return (void *) t->m_obj;
 }
 
-void _DeleteLinkedList(stdcoll *coll) {
+void _LinkedListDelete(stdcoll *coll) {
     stdllist *llist = ListCast(CollectionCast(coll));
-    _ListDelete(coll);
+    llist->m_Super_Delete(coll);
     free(llist);
 }
 
@@ -167,13 +169,14 @@ stdllist * LinkedListI(void (*t_ItemRelease)(void *), int (*t_ItemEquals)(void *
         _ListClear,
         _Size,
         _Contains,
-        _DeleteLinkedList,
         _GetAtIndex,
         _Front,
         _Back,
         _RemoveAtIndex,
         t_ItemRelease,
         t_ItemEquals);
+    llist->m_Super_Delete = llist->m_super->m_super->m_Delete;
+    llist->m_super->m_super->m_Delete = _LinkedListDelete;
     llist->m_front = NULL;
     llist->m_back = NULL;
     llist->m_size = (size_t) 0;

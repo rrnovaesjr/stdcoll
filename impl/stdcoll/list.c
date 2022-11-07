@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void _ListDelete(stdcoll *coll);
+
 stdlist * _List(
     void *t_stdlist_impl,
     int (*t_Add)(stdcoll *, void *),
@@ -12,7 +14,6 @@ stdlist * _List(
     void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
-    void (*t_Delete)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
@@ -27,12 +28,15 @@ stdlist * _List(
         t_Remove,
         t_ToArray, 
         t_AddAll, 
-        t_Clear, 
-        t_Size, 
+        t_Clear,
+        t_Size,
         t_Contains,
-        t_Delete,
         t_ItemRelease,
         t_ItemEquals);
+    
+
+    list->m_Super_Delete = list->m_super->m_Delete;
+    list->m_super->m_Delete = _ListDelete;
 
     list->m_stdlist_impl = t_stdlist_impl;
     list->m_GetAtIndex = t_GetAtIndex;
@@ -80,6 +84,6 @@ void _ListClear(stdcoll *coll) {
 
 void _ListDelete(stdcoll *coll) {
     stdlist *list = CollectionCast(coll);
-    _CollectionDelete(coll);
+    list->m_Super_Delete(coll);
     free(list);
 }
