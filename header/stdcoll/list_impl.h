@@ -20,7 +20,6 @@ stdlist * _List(
     void * (*t_Remove)(stdcoll *, const void *),
     void (*t_ToArray)(stdcoll *, void *),
     int (*t_AddAll)(stdcoll *, stdcoll *const),
-    void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
@@ -29,7 +28,5 @@ stdlist * _List(
     void * (*t_RemoveAtIndex)(stdlist *std_list, const int idx),
     void (*t_ItemRelease)(void *),
     int (*t_ItemEquals)(void *, void *));
-
-void _ListClear(stdcoll *coll);
 
 #endif

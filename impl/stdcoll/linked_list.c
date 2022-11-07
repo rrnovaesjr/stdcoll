@@ -166,7 +166,6 @@ stdllist * LinkedListI(void (*t_ItemRelease)(void *), int (*t_ItemEquals)(void *
         _Remove,
         _ToArray,
         _AddAll,
-        _ListClear,
         _Size,
         _Contains,
         _GetAtIndex,

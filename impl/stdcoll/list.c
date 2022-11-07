@@ -5,13 +5,14 @@
 
 void _ListDelete(stdcoll *coll);
 
+void _ListClear(stdcoll *coll);
+
 stdlist * _List(
     void *t_stdlist_impl,
     int (*t_Add)(stdcoll *, void *),
     void * (*t_Remove)(stdcoll *, const void *),
     void (*t_ToArray)(stdcoll *, void *),
     int (*t_AddAll)(stdcoll *, stdcoll *const),
-    void (*t_Clear)(stdcoll *),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
@@ -28,7 +29,7 @@ stdlist * _List(
         t_Remove,
         t_ToArray, 
         t_AddAll, 
-        t_Clear,
+        _ListClear,
         t_Size,
         t_Contains,
         t_ItemRelease,
