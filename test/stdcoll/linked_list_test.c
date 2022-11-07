@@ -23,27 +23,27 @@ int * supply_int(int n) {
 }
 
 void should_initialize_linked_list() {
-    assertd(CollectionSize(ListSuper(list)) == 0UL, "Should initialize with size 0");
-    assertd(CollectionIsEmpty(ListSuper(list)), "Should initialize with size 0");
+    ASSERTI_EQ(CollectionSize(ListSuper(list)), (size_t) 0);
+    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
 }
 
 void should_update_linked_list_and_query_elements() {
-    assertd(CollectionIsEmpty(ListSuper(list)), "The list should be empty");
-    assertd(CollectionAdd(ListSuper(list), supply_int(1)) == 1, "Should modify linked list when adding 1");
-    assertd(CollectionAdd(ListSuper(list), supply_int(2)) == 1, "Should modify linked list when adding 2");
-    assertd(CollectionAdd(ListSuper(list), supply_int(3)) == 1, "Should modify linked list when adding 3");
-    assertd(CollectionAdd(ListSuper(list), supply_int(4)) == 1, "Should modify linked list when adding 4");
-    assertd(CollectionSize(ListSuper(list)) == 4UL, "Should have 4 elements");
-    assertd(!CollectionIsEmpty(ListSuper(list)), "The list should not be empty");
-    assertd(*(int *) ListGetAtIndex(list, 0) == 1, "Should return 1 at index 0");
-    assertd(*(int *) ListGetAtIndex(list, 1) == 2, "Should return 2 at index 1");
-    assertd(*(int *) ListGetAtIndex(list, 2) == 3, "Should return 3 at index 2");
-    assertd(*(int *) ListGetAtIndex(list, 3) == 4, "Should return 4 at index 3");
-    assertd(!ListGetAtIndex(list, -1), "Should not get element at invalid index");
-    assertd(!ListGetAtIndex(list, 10), "Should not get element at invalid index");
+    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
+    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(1)));
+    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(2)));
+    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(3)));
+    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(4)));
+    ASSERTI_EQ((int) CollectionSize(ListSuper(list)), 4);
+    ASSERT_FALSE(CollectionIsEmpty(ListSuper(list)));
+    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 0), 1);
+    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 1), 2);
+    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 2), 3);
+    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 3), 4);
+    ASSERT_TRUE(!ListGetAtIndex(list, -1));
+    ASSERT_TRUE(!ListGetAtIndex(list, 100));
     CollectionClear(ListSuper(list));
-    assertd(CollectionIsEmpty(ListSuper(list)), "The list should be empty");
-    assertd(CollectionSize(ListSuper(list)) == 0UL, "Should clear the linked list");
+    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
+    ASSERTI_EQ((int) CollectionSize(ListSuper(list)), 0);
 }
 
 test_instance tests[] = {
