@@ -4,16 +4,16 @@
 #include "common/suite.h"
 #include "stdcoll/linked_list.h"
 
-stdlist *list;
+stdllist *llist;
 
 const char description[] = "linked_list_test";
 
 void initialize_list() {
-    list = LinkedListSuper(LinkedList());
+    llist = LinkedList();
 }
 
 void destroy_list() {
-    CollectionDelete(ListSuper(list));
+    LinkedListDelete(llist);
 }
 
 int * supply_int(int n) {
@@ -23,27 +23,27 @@ int * supply_int(int n) {
 }
 
 void should_initialize_linked_list() {
-    ASSERTI_EQ(CollectionSize(ListSuper(list)), (size_t) 0);
-    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
+    ASSERTI_EQ(LinkedListSize(llist), (size_t) 0);
+    ASSERT_TRUE(LinkedListIsEmpty(llist));
 }
 
 void should_update_linked_list_and_query_elements() {
-    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
-    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(1)));
-    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(2)));
-    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(3)));
-    ASSERT_TRUE(CollectionAdd(ListSuper(list), supply_int(4)));
-    ASSERTI_EQ((int) CollectionSize(ListSuper(list)), 4);
-    ASSERT_FALSE(CollectionIsEmpty(ListSuper(list)));
-    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 0), 1);
-    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 1), 2);
-    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 2), 3);
-    ASSERTI_EQ(*(int *) ListGetAtIndex(list, 3), 4);
-    ASSERT_SAME(ListGetAtIndex(list, -1), NULL);
-    ASSERT_SAME(ListGetAtIndex(list, 100), NULL);
-    CollectionClear(ListSuper(list));
-    ASSERT_TRUE(CollectionIsEmpty(ListSuper(list)));
-    ASSERTI_EQ((int) CollectionSize(ListSuper(list)), 0);
+    ASSERT_TRUE(LinkedListIsEmpty(llist));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(1)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(2)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(3)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(4)));
+    ASSERTI_EQ((int) LinkedListSize(llist), 4);
+    ASSERT_FALSE(LinkedListIsEmpty(llist));
+    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 0), 1);
+    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 1), 2);
+    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 2), 3);
+    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 3), 4);
+    ASSERT_SAME(LinkedListGetAtIndex(llist, -1), NULL);
+    ASSERT_SAME(LinkedListGetAtIndex(llist, 100), NULL);
+    LinkedListClear(llist);
+    ASSERT_TRUE(LinkedListIsEmpty(llist));
+    ASSERTI_EQ((int) LinkedListSize(llist), 0);
 }
 
 test_instance tests[] = {

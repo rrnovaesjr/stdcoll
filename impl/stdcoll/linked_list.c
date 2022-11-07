@@ -189,3 +189,66 @@ stdllist * LinkedList() {
 stdllist * LinkedListFromArray(void *base, size_t amount, size_t size) {
 
 }
+
+inline int LinkedListAdd(stdllist *llist, void *obj)
+{
+    return ListAdd(LinkedListSuper(llist), obj);
+}
+
+inline void * LinkedListRemove(stdllist *llist, const void *obj)
+{
+    return ListRemove(LinkedListSuper(llist), obj);
+}
+
+inline int LinkedListAddAll(stdllist *llist, stdcoll *const other_coll)
+{
+    return ListAddAll(LinkedListSuper(llist), other_coll);
+}
+
+inline void LinkedListClear(stdllist *llist)
+{
+    ListClear(LinkedListSuper(llist));
+}
+
+inline int LinkedListIsEmpty(stdllist *llist)
+{
+    return ListIsEmpty(LinkedListSuper(llist));
+}
+
+inline size_t LinkedListSize(stdllist *llist)
+{
+    return ListSize(LinkedListSuper(llist));
+}
+
+inline int LinkedListContains(stdllist *llist)
+{
+    return 0;
+}
+
+inline void LinkedListDelete(stdllist *llist)
+{
+    ListDelete(LinkedListSuper(llist));
+}
+
+inline void * LinkedListGetAtIndex(stdllist *llist, const int idx) {
+    return ListGetAtIndex(LinkedListSuper(llist), idx);
+}
+
+inline int LinkedListAddAtIndex(stdllist *llist, void *obj, const int idx) {
+    return ListAddAtIndex(LinkedListSuper(llist), obj, idx);
+}
+
+inline void * LinkedListFront(stdllist *llist) 
+{
+    return ListFront(LinkedListSuper(llist));
+}
+
+inline void * LinkedListBack(stdllist *llist)
+{
+    return ListBack(LinkedListSuper(llist));
+}
+
+inline void * LinkedListRemoveAtIndex(stdllist *llist, const int idx)
+{
+    return ListRemoveAtIndex(LinkedListSuper(llist), idx);
+}

@@ -5,24 +5,6 @@
 
 typedef struct stdlist stdlist;
 
-inline int ListAdd(stdlist *, void *obj);
-
-inline void * ListRemove(stdlist *, const void *obj);
-
-inline void ListToArray(stdlist *, void *output);
-
-inline int ListAddAll(stdlist *, stdcoll *const other_coll);
-
-inline void ListClear(stdlist *);
-
-inline int ListIsEmpty(stdlist *);
-
-inline size_t ListSize(stdlist *);
-
-inline int ListContains(stdlist *);
-
-inline void ListDelete(stdlist *);
-
 void * ListGetAtIndex(stdlist *, const int idx);
 
 int ListAddAtIndex(stdlist *, void *obj, const int idx);
@@ -37,49 +19,22 @@ void * ListCast(stdlist *);
 
 stdcoll * ListSuper(stdlist *);
 
-inline int ListAdd(stdlist *list, void *obj)
-{
-    return CollectionAdd(ListSuper(list), obj);
-}
+int ListAdd(stdlist *list, void *obj);
 
-inline void *ListRemove(stdlist *list, const void *obj)
-{
-    CollectionRemove(ListSuper(list), obj);
-}
+void *ListRemove(stdlist *list, const void *obj);
 
-inline void ListToArray(stdlist *list, void *output)
-{
-    CollectionToArray(ListSuper(list), output);
-}
+void ListToArray(stdlist *list, void *output);
 
-inline int ListAddAll(stdlist *list, stdcoll *const other_coll)
-{
-    CollectionAddAll(ListSuper(list), other_coll);
-}
+int ListAddAll(stdlist *list, stdcoll *const other_coll);
 
-inline void ListClear(stdlist *list)
-{
-    CollectionClear(ListSuper(list));
-}
+void ListClear(stdlist *list);
 
-inline int ListIsEmpty(stdlist *list)
-{
-    return CollectionIsEmpty(ListSuper(list));
-}
+int ListIsEmpty(stdlist *list);
 
-inline size_t ListSize(stdlist *list)
-{
-    return CollectionSize(ListSuper(list));
-}
+size_t ListSize(stdlist *list);
 
-inline int ListContains(stdlist *list)
-{
-    return CollectionContains(ListSuper(list));
-}
+int ListContains(stdlist *list);
 
-inline void ListDelete(stdlist *list)
-{
-    CollectionDelete(ListSuper(list));
-}
+void ListDelete(stdlist *list);
 
 #endif

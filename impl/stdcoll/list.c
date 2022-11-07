@@ -48,6 +48,11 @@ stdlist *_List(
     return list;
 }
 
+int ListAddAtIndex(stdlist *list, void *obj, const int idx)
+{
+    return 0;
+}
+
 void *ListGetAtIndex(stdlist *std_list, const int idx)
 {
     return std_list->m_GetAtIndex(std_list, idx);
@@ -97,4 +102,49 @@ void _ListDelete(stdcoll *coll)
     stdlist *list = CollectionCast(coll);
     list->m_Super_Delete(coll);
     free(list);
+}
+
+inline int ListAdd(stdlist *list, void *obj)
+{
+    return CollectionAdd(ListSuper(list), obj);
+}
+
+inline void *ListRemove(stdlist *list, const void *obj)
+{
+    CollectionRemove(ListSuper(list), obj);
+}
+
+inline void ListToArray(stdlist *list, void *output)
+{
+    CollectionToArray(ListSuper(list), output);
+}
+
+inline int ListAddAll(stdlist *list, stdcoll *const other_coll)
+{
+    CollectionAddAll(ListSuper(list), other_coll);
+}
+
+inline void ListClear(stdlist *list)
+{
+    CollectionClear(ListSuper(list));
+}
+
+inline int ListIsEmpty(stdlist *list)
+{
+    return CollectionIsEmpty(ListSuper(list));
+}
+
+inline size_t ListSize(stdlist *list)
+{
+    return CollectionSize(ListSuper(list));
+}
+
+inline int ListContains(stdlist *list)
+{
+    return CollectionContains(ListSuper(list));
+}
+
+inline void ListDelete(stdlist *list)
+{
+    CollectionDelete(ListSuper(list));
 }
