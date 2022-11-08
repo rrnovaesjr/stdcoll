@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "common/assert_impl.h"
 #include "common/suite.h"
+#include "common/print.h"
 
 int for_each_test(test_instance t) {
     if (before_each) {
@@ -11,9 +12,10 @@ int for_each_test(test_instance t) {
         }
     }
 
-    fprintf(stderr, "%s:\n", t.description);
+    LOG_INFO(stdout, "[ RUN      ] %s\n", t.description);
     int res = run_assertd(t.f);
-    fprintf(stderr, "%s: %s\n", t.description, !res ? "PASS" : "FAIL");
+    if (!res) {LOG_OK(stdout, "[       OK ] %s\n", t.description);}
+    else {LOG_ERROR(stdout, "[     FAIL ] %s\n", t.description);}
 
     if (after_each) {
         void (**a)(void) = after_each;
@@ -45,12 +47,8 @@ int for_suite() {
 }
 
 int main() {
-    int i;
-    int res = 0;
-    
-    res |= for_suite();
-
-    fprintf(stderr, "RESULT: %s\n", !res ? "PASS" : "FAIL");
-
+    int res = for_suite();
+    if (!res) { LOG_OK(stdout, "\nTEST RESULTS: PASS\n"); }
+    else LOG_ERROR(stdout, "\nTEST RESULTS: FAIL\n");
     return res;
 }
