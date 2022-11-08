@@ -71,12 +71,12 @@ add_executable(
 add_executable(
   linked_list_st_as_coll_test
   ${TEST_IMPL}
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test_as_coll.c)
+  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
 
 add_executable(
   linked_list_sh_as_coll_test
   ${TEST_IMPL}
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test_as_coll.c)
+  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
 
 target_link_libraries(linked_list_test PUBLIC stdcoll_linked_list)
 
