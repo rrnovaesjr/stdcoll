@@ -3,6 +3,6 @@
 
 #include "stdcoll/collection.h"
 
-stdcoll * SupplyCollection();
+extern stdcoll * SupplyCollection();
 
 #endif

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.22)
 
 project(StdCollection LANGUAGES C)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/header
                     ${CMAKE_CURRENT_SOURCE_DIR}/impl)
 
@@ -29,12 +31,14 @@ file(GLOB STDCOLL_OPERATORS
      ${CMAKE_CURRENT_SOURCE_DIR}/impl/stdcoll/operators.c)
 
 add_library(stdcoll STATIC ${STDCOLL})
+add_library(stdcoll_interface_st STATIC ${STDCOLL_INTERFACE})
 add_library(stdcoll_interface STATIC ${STDCOLL_INTERFACE})
 
 add_library(stdcoll_list STATIC ${STDCOLL_LIST})
 
 add_library(stdcoll_linked_list STATIC ${STDCOLL_LINKED_LIST})
 add_library(stdcoll_linked_list_st STATIC ${STDCOLL_INTERFACE_LINKED_LIST_IMPL})
+add_library(stdcoll_linked_list_sh SHARED ${STDCOLL_INTERFACE_LINKED_LIST_IMPL})
 
 add_library(stdcoll_operators_st STATIC ${STDCOLL_OPERATORS})
 
@@ -45,7 +49,13 @@ target_link_libraries(
   PUBLIC stdcoll_operators_st)
 target_link_libraries(
   stdcoll_linked_list_st
-  PUBLIC stdcoll_interface
+  PUBLIC stdcoll_interface_st
+  PRIVATE stdcoll_list
+  PRIVATE stdcoll_operators_st)
+target_link_libraries(
+  stdcoll_linked_list_sh
+  PUBLIC stdcoll_interface_st
+  PRIVATE stdcoll
   PRIVATE stdcoll_list
   PRIVATE stdcoll_operators_st)
 
@@ -59,24 +69,36 @@ add_executable(
                    ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test.c)
 
 add_executable(
-  linked_list_st_test
+  linked_list_st_as_coll_test
   ${TEST_IMPL}
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test_as_coll_st.c)
+  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test_as_coll.c)
+
+add_executable(
+  linked_list_sh_as_coll_test
+  ${TEST_IMPL}
+  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test_as_coll.c)
+
+target_link_libraries(linked_list_test PUBLIC stdcoll_linked_list)
 
 target_link_libraries(
-  linked_list_test
-  PUBLIC stdcoll
-  PUBLIC stdcoll_linked_list)
-
-target_link_libraries(
-  linked_list_st_test
+  linked_list_st_as_coll_test
+  PUBLIC stdcoll_interface
   PUBLIC stdcoll_linked_list_st)
+
+target_link_libraries(
+  linked_list_sh_as_coll_test
+  PUBLIC stdcoll_interface
+  PUBLIC stdcoll_linked_list_sh)
 
 target_include_directories(linked_list_test
                            PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
-target_include_directories(linked_list_st_test
+target_include_directories(linked_list_st_as_coll_test
+                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
+
+target_include_directories(linked_list_sh_as_coll_test
                            PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 add_test(NAME linked_list_test COMMAND linked_list_test)
-add_test(NAME linked_list_st_test COMMAND linked_list_st_test)
+add_test(NAME linked_list_st_as_coll_test COMMAND linked_list_st_as_coll_test)
+add_test(NAME linked_list_sh_as_coll_test COMMAND linked_list_sh_as_coll_test)
