@@ -64,31 +64,36 @@ include(CTest)
 
 file(GLOB TEST_IMPL ${CMAKE_CURRENT_SOURCE_DIR}/test/common/*)
 
-add_executable(
-  linked_list_test ${TEST_IMPL}
-                   ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test.c)
+add_library(test_common STATIC ${TEST_IMPL})
 
-add_executable(
-  linked_list_st_as_coll_test
-  ${TEST_IMPL}
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
+add_executable(linked_list_test
+               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test.c)
 
-add_executable(
-  linked_list_sh_as_coll_test
-  ${TEST_IMPL}
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
+add_executable(linked_list_st_as_coll_test
+               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
 
-target_link_libraries(linked_list_test PUBLIC stdcoll_linked_list)
+add_executable(linked_list_sh_as_coll_test
+               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
+
+target_link_libraries(
+  linked_list_test
+  PUBLIC stdcoll_linked_list
+  PUBLIC test_common)
 
 target_link_libraries(
   linked_list_st_as_coll_test
+  PUBLIC test_common
   PUBLIC stdcoll_interface
   PUBLIC stdcoll_linked_list_st)
 
 target_link_libraries(
   linked_list_sh_as_coll_test
+  PUBLIC test_common
   PUBLIC stdcoll_interface
   PUBLIC stdcoll_linked_list_sh)
+
+target_include_directories(test_common
+                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 target_include_directories(linked_list_test
                            PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
