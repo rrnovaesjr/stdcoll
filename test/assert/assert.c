@@ -1,5 +1,5 @@
 #include "assert/assert_impl.h"
-#include "assertions/assertions_list.h"
+#include "assertions/assertions.h"
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
@@ -38,7 +38,7 @@ void assertd(int condition, const int line, const char *file, const char *fmt, .
     vsprintf(message, fmt, args);
 
     if (!condition) {
-        assertion_add(file, message);
+        AssertionFail(file, message);
         longjmp(jmp, ASSERTION_FAILED);
     }
 }
@@ -63,13 +63,15 @@ void assert_same(void *actual, void *expected, int line, const char *file)
     assertd(actual == expected, line, file, "expected %p to be the same as %p", actual, expected);
 }
 
-int run_assertd(void (*f)(void)) {
+int run_assertd(void (*f)(void), const char *test_description) {
     int c = setjmp(jmp);
 
     if (c == ASSERTION_STARTED) {
+        AssertionAdd(test_description);
         f();
     } else if (c == ASSERTION_FAILED) {
         return FAILURE;
     }
+    AssertionSuccess();
     return SUCCESS;
 }

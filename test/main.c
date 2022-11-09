@@ -2,7 +2,7 @@
 #include "assert/assert_impl.h"
 #include "suite/suite.h"
 #include "log/print.h"
-#include "assertions/assertions_list.h"
+#include "assertions/assertions.h"
 
 int for_each_test(test_instance t) {
     void (**b)(void) = before_each;
@@ -12,7 +12,7 @@ int for_each_test(test_instance t) {
     }
 
     LOG_INFO(stdout, "[ RUN      ] %s\n", t.description);
-    int res = run_assertd(t.f);
+    int res = run_assertd(t.f, t.description);
     if (!res) {LOG_OK(stdout, "[       OK ] %s\n", t.description);}
     else {LOG_ERROR(stdout, "[     FAIL ] %s\n", t.description);}
 
@@ -43,15 +43,15 @@ int for_suite() {
 }
 
 int main() {
-    init();
+    AssertionsInit();
     int res = for_suite();
     if (!res) { 
         LOG_OK(stdout, "\nTEST RESULTS: PASS\n"); 
     }
     else {
-        log_all_assertions(stderr);
+        AssertionsLogAll(stderr);
         LOG_ERROR(stdout, "\nTEST RESULTS: FAIL\n");
     }
-    release();
+    AssertionsFinalize();
     return res;
 }
