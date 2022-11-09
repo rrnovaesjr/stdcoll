@@ -2,7 +2,7 @@
 #define __DEF_SUITE_H__
 
 #include <stdio.h>
-#include "common/assert.h"
+#include "assert/assert.h"
 
 typedef struct test_instance {
     void (*f)(void);

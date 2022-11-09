@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "common/assert_impl.h"
-#include "common/suite.h"
-#include "common/print.h"
+#include "assert/assert_impl.h"
+#include "suite/suite.h"
+#include "log/print.h"
+#include "assertions/assertions_list.h"
 
 int for_each_test(test_instance t) {
     if (before_each) {
@@ -47,8 +48,15 @@ int for_suite() {
 }
 
 int main() {
+    init();
     int res = for_suite();
-    if (!res) { LOG_OK(stdout, "\nTEST RESULTS: PASS\n"); }
-    else LOG_ERROR(stdout, "\nTEST RESULTS: FAIL\n");
+    if (!res) { 
+        LOG_OK(stdout, "\nTEST RESULTS: PASS\n"); 
+    }
+    else {
+        log_all_assertions(stderr);
+        LOG_ERROR(stdout, "\nTEST RESULTS: FAIL\n");
+    }
+    release();
     return res;
 }

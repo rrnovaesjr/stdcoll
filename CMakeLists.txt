@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.22)
 
 project(StdCollection LANGUAGES C)
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+option(BUILD_TESTING "Build tests" ON)
+
+if(MSVC)
+  add_compile_options("/permissive-" "/W4" "/w14640")
+else()
+  add_compile_options("-Wall" "-Wextra" "-Wshadow" "-pedantic" "-fPIC")
+endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/header
                     ${CMAKE_CURRENT_SOURCE_DIR}/impl)
@@ -59,51 +65,8 @@ target_link_libraries(
   PRIVATE stdcoll_list
   PRIVATE stdcoll_operators_st)
 
-enable_testing()
-include(CTest)
-
-file(GLOB TEST_IMPL ${CMAKE_CURRENT_SOURCE_DIR}/test/common/*)
-
-add_library(test_common STATIC ${TEST_IMPL})
-
-add_executable(linked_list_test
-               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/linked_list_test.c)
-
-add_executable(linked_list_st_as_coll_test
-               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
-
-add_executable(linked_list_sh_as_coll_test
-               ${CMAKE_CURRENT_SOURCE_DIR}/test/stdcoll/collections_test.c)
-
-target_link_libraries(
-  linked_list_test
-  PUBLIC stdcoll_linked_list
-  PUBLIC test_common)
-
-target_link_libraries(
-  linked_list_st_as_coll_test
-  PUBLIC test_common
-  PUBLIC stdcoll_interface
-  PUBLIC stdcoll_linked_list_st)
-
-target_link_libraries(
-  linked_list_sh_as_coll_test
-  PUBLIC test_common
-  PUBLIC stdcoll_interface
-  PUBLIC stdcoll_linked_list_sh)
-
-target_include_directories(test_common
-                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
-
-target_include_directories(linked_list_test
-                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
-
-target_include_directories(linked_list_st_as_coll_test
-                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
-
-target_include_directories(linked_list_sh_as_coll_test
-                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test)
-
-add_test(NAME linked_list_test COMMAND linked_list_test)
-add_test(NAME linked_list_st_as_coll_test COMMAND linked_list_st_as_coll_test)
-add_test(NAME linked_list_sh_as_coll_test COMMAND linked_list_sh_as_coll_test)
+if(BUILD_TESTING)
+  include(CTest)
+  include_directories(${CMAKE_SOURCE_DIR}/test)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/test)
+endif()

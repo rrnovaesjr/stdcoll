@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "common/assert.h"
-#include "common/suite.h"
+#include "assert/assert.h"
+#include "suite/suite.h"
 #include "stdcoll/linked_list.h"
 
 stdllist *llist;

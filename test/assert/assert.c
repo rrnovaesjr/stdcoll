@@ -1,4 +1,5 @@
-#include "common/assert_impl.h"
+#include "assert/assert_impl.h"
+#include "assertions/assertions_list.h"
 #include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
@@ -37,12 +38,8 @@ void assertd(int condition, const int line, const char *file, const char *fmt, .
     va_start(args, fmt);
     vsprintf(message, fmt, args);
 
-    if (condition) {
-        #ifdef DEBUG
-        fprintf(stout, "Assertion succeded at %s: %s\n", file_label, message);
-        #endif
-    } else {
-        fprintf(stderr, "Assertion failed at %s: %s\n", file_label, message);
+    if (!condition) {
+        assertion_add(file, message);
         longjmp(jmp, ASSERTION_FAILED);
     }
 }
