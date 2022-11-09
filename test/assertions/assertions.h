@@ -11,9 +11,9 @@ void AssertionAdd(const char *t_test_description);
 
 void AssertionSuccess();
 
-int AssertionFail(char *test, char *msg);
+int AssertionFail(const char *file, const int line, char *msg);
 
-int AssertionsLogAll(FILE *output);
+void AssertionsLogAll(FILE *output);
 
 void AssertionsFinalize();
 

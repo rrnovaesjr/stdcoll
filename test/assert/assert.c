@@ -38,7 +38,7 @@ void assertd(int condition, const int line, const char *file, const char *fmt, .
     vsprintf(message, fmt, args);
 
     if (!condition) {
-        AssertionFail(file, message);
+        AssertionFail(file, line, message);
         longjmp(jmp, ASSERTION_FAILED);
     }
 }
