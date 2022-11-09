@@ -37,7 +37,7 @@ void should_update_linked_list_and_query_elements() {
     ASSERT_FALSE(LinkedListIsEmpty(llist));
     ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 0), 1);
     ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 1), 2);
-    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 2), 4);
+    ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 2), 3);
     ASSERTI_EQ(*(int *) LinkedListGetAtIndex(llist, 3), 4);
     ASSERT_SAME(LinkedListGetAtIndex(llist, -1), NULL);
     ASSERT_SAME(LinkedListGetAtIndex(llist, 100), NULL);

@@ -38,7 +38,7 @@ int AssertionFail(const char *file, const int line, char *msg)
     assert_context->line = line;
     strcpy(assert_context->m_assertion_message, msg);
 
-    LinkedListAdd(assertions, assert_context);
+    return LinkedListAdd(assertions, assert_context);
 }
 
 void AssertionsLogAll(FILE *output)
