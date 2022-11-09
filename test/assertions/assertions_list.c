@@ -2,6 +2,7 @@
 #include "assertions/assertions_list.h"
 #include "log/print.h"
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct assertion {
     char test[128];

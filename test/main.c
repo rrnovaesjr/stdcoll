@@ -5,12 +5,10 @@
 #include "assertions/assertions_list.h"
 
 int for_each_test(test_instance t) {
-    if (before_each) {
-        void (**b)(void) = before_each;
-        while ((*b) != NULL) {
-            (*b)();
-            b++;
-        }
+    void (**b)(void) = before_each;
+    while ((*b) != NULL) {
+        (*b)();
+        b++;
     }
 
     LOG_INFO(stdout, "[ RUN      ] %s\n", t.description);
@@ -18,12 +16,10 @@ int for_each_test(test_instance t) {
     if (!res) {LOG_OK(stdout, "[       OK ] %s\n", t.description);}
     else {LOG_ERROR(stdout, "[     FAIL ] %s\n", t.description);}
 
-    if (after_each) {
-        void (**a)(void) = after_each;
-        while ((*a )!= NULL) {
-            (*a)();
-            a++;
-        }
+    void (**a)(void) = after_each;
+    while ((*a )!= NULL) {
+        (*a)();
+        a++;
     }
 
     return res;
@@ -33,7 +29,6 @@ int for_suite() {
     if (before_all) before_all();
 
     int i = 0;
-    test_instance t = tests[i];
 
     int res = 0;
 

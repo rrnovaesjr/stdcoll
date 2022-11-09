@@ -70,12 +70,12 @@ void * _GetAtIndex(stdlist *list, const int idx) {
     stdllist *llist = ListCast(list);
     size_t size = llist->m_size;
 
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= (int) size)
         return NULL;
 
     int i;
     stdnode *t = NULL;
-    if (idx < (size >> 1)) {
+    if ((size_t) idx < (size >> 1)) {
         for (i = 0, t = llist->m_front; i < idx && t != NULL; i++, t = t->m_next);
     } else {
         for (i = (int) size - 1, t = llist->m_back; i > idx && t != NULL; i--, t = t->m_prev);
@@ -106,13 +106,13 @@ void * _RemoveAtIndex(stdlist *list, const int idx) {
     stdllist *llist = ListCast(list);
     size_t size = llist->m_size;
 
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= (int) size)
         return NULL;
 
     int i;
     stdnode *t = NULL;
 
-    if (idx < (size >> 1)) {
+    if ((size_t) idx < (size >> 1)) {
         for (i = 0, t = llist->m_front; i < idx && t != NULL; i++, t = t->m_next);
     } else {
         for (i = (int) size - 1, t = llist->m_back; i > idx && t != NULL; i--, t = t->m_prev);

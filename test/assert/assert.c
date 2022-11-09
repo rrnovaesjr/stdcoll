@@ -10,7 +10,6 @@
 static jmp_buf jmp;
 
 static const int ASSERTION_STARTED = 0;
-static const int ASSERTION_OK = 1;
 static const int ASSERTION_FAILED = -1;
 static const int SUCCESS = 0;
 static const int FAILURE = 1;
