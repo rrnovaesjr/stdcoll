@@ -59,6 +59,25 @@ void should_iterate_over_collection()
         ASSERTI_EQ(*(int *)IteratorGet(llitr), i);
     }
     IteratorDelete(llitr);
+
+    for (llitr = CollectionIterator(llist); IteratorHasNext(llitr);)
+    {
+        if (*(int *)IteratorGet(llitr) % 2 == 0)
+        {
+            IteratorRemove(llitr);
+        }
+        else
+        {
+            llitr = IteratorNext(llitr);
+        }
+    }
+    IteratorDelete(llitr);
+
+    for (llitr = CollectionIterator(llist); IteratorHasNext(llitr); llitr = IteratorNext(llitr))
+    {
+        ASSERT_TRUE(*(int *)IteratorGet(llitr) % 2 != 0);
+    }
+    IteratorDelete(llitr);
 }
 
 test_instance tests[] = {
