@@ -293,7 +293,7 @@ typedef struct stdllist_itr_data
 int _LinkedListIteratorHasNext(const stditr *itr)
 {
     stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
-    return itr_data->m_current != NULL && itr_data->m_current->m_next != NULL;
+    return itr_data->m_current != NULL;
 }
 
 void *_LinkedListIteratorGet(const stditr *itr)
