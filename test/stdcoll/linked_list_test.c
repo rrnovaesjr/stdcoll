@@ -55,7 +55,7 @@ void should_update_linked_list_and_query_elements()
     ASSERT_TRUE(LinkedListAdd(llist, supply_int(4)));
     ASSERTI_EQ((int)LinkedListSize(llist), 4);
     void *value = LinkedListRemoveAtIndex(llist, 2);
-    ASSERT_TRUE(value);
+    ASSERT_TRUE(value != NULL);
     free(value);
     ASSERTI_EQ((int)LinkedListSize(llist), 3);
     ASSERT_TRUE(LinkedListAdd(llist, supply_int(2)));

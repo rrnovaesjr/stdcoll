@@ -15,6 +15,7 @@ stdlist *_List(
     int (*t_AddAll)(stdcoll *, stdcoll *const),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
+    stditr *(*t_Iterator)(stdcoll *),
     void *(*t_GetAtIndex)(stdlist *std_list, const int idx),
     void *(*t_Front)(stdlist *std_list),
     void *(*t_Back)(stdlist *std_list),
@@ -33,6 +34,7 @@ stdlist *_List(
         _ListClear,
         t_Size,
         t_Contains,
+        t_Iterator,
         t_ItemRelease,
         t_ItemEquals);
 
@@ -147,4 +149,9 @@ inline int ListContains(stdlist *list)
 inline void ListDelete(stdlist *list)
 {
     CollectionDelete(ListSuper(list));
+}
+
+inline stditr *ListIterator(stdlist *list)
+{
+    return CollectionIterator(ListSuper(list));
 }

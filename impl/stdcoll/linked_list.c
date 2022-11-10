@@ -169,16 +169,9 @@ void *_RemoveAtIndex(stdlist *list, const int idx)
     return _UnlinkNode(llist, t);
 }
 
-void *_CastList(stdlist *list)
+stditr *_LinkedListIterator(stdcoll *coll)
 {
-}
-
-stdcoll *_ListToCollection(stdlist *list)
-{
-}
-
-stdllist *_NewLinkedList()
-{
+    return LinkedListIterator(ListCast(CollectionCast(coll)));
 }
 
 stdlist *LinkedListSuper(stdllist *linked_list)
@@ -202,6 +195,7 @@ stdllist *LinkedListI(void (*t_ItemRelease)(void *), int (*t_ItemEquals)(void *,
         _AddAll,
         _Size,
         _Contains,
+        _LinkedListIterator,
         _GetAtIndex,
         _Front,
         _Back,
@@ -296,13 +290,13 @@ typedef struct stdllist_itr_data
     stdllist *m_llist;
 } stdllist_itr_data;
 
-int _LinkedListIteratorHasNext(stditr *itr)
+int _LinkedListIteratorHasNext(const stditr *itr)
 {
     stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
     return itr_data->m_current != NULL && itr_data->m_current->m_next != NULL;
 }
 
-void *_LinkedListIteratorGet(stditr *itr)
+void *_LinkedListIteratorGet(const stditr *itr)
 {
     stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
     if (!itr_data->m_current)
@@ -336,7 +330,7 @@ stditr *_LinkedListIteratorRemove(stditr *itr)
     return itr;
 }
 
-stditr *LinkedListIterator(stdllist *list)
+inline stditr *LinkedListIterator(stdllist *list)
 {
     stdllist_itr_data *itr = malloc(sizeof(stdllist_itr_data));
     itr->m_current = list->m_front;

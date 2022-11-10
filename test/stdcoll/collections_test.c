@@ -50,7 +50,7 @@ void should_iterate_over_collection()
     int i;
     for (i = 0; i < 10000; i++)
     {
-        ASSERT_TRUE(LinkedListAdd(llist, supply_int(i)));
+        ASSERT_TRUE(CollectionAdd(llist, supply_int(i)));
     }
 
     stditr *llitr;
