@@ -45,9 +45,25 @@ void should_update_collection_and_query_elements()
     ASSERTI_EQ((int)CollectionSize(llist), 0);
 }
 
+void should_iterate_over_collection()
+{
+    int i;
+    for (i = 0; i < 10000; i++)
+    {
+        ASSERT_TRUE(LinkedListAdd(llist, supply_int(i)));
+    }
+
+    stditr *llitr;
+    for (llitr = LinkedListIterator(llist), i = 0; IteratorHasNext(llitr); llitr = IteratorNext(llitr), i++)
+    {
+        ASSERTI_EQ(*(int *)IteratorGet(llist), i);
+    }
+}
+
 test_instance tests[] = {
     {should_initialize_collection, "should_initialize_collection"},
     {should_update_collection_and_query_elements, "should_update_collection_and_query_elements"},
+    {should_iterate_over_collection, "should_iterate_over_collection"},
     {NULL, NULL}};
 
 void (*before_all)(void) = NULL;

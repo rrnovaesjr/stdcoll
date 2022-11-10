@@ -5,19 +5,19 @@
 
 typedef struct stdlist stdlist;
 
-void * ListGetAtIndex(stdlist *, const int idx);
+void *ListGetAtIndex(stdlist *, const int idx);
 
 int ListAddAtIndex(stdlist *, void *obj, const int idx);
 
-void * ListFront(stdlist *);
+void *ListFront(stdlist *);
 
-void * ListBack(stdlist *);
+void *ListBack(stdlist *);
 
-void * ListRemoveAtIndex(stdlist *, const int idx);
+void *ListRemoveAtIndex(stdlist *, const int idx);
 
-void * ListCast(stdlist *);
+void *ListCast(stdlist *);
 
-stdcoll * ListSuper(stdlist *);
+stdcoll *ListSuper(stdlist *);
 
 int ListAdd(stdlist *list, void *obj);
 
@@ -36,5 +36,7 @@ size_t ListSize(stdlist *list);
 int ListContains(stdlist *list);
 
 void ListDelete(stdlist *list);
+
+stditr *ListIterator(stdlist *list);
 
 #endif

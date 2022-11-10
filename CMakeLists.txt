@@ -36,6 +36,9 @@ file(GLOB STDCOLL_OPERATORS
      ${CMAKE_CURRENT_SOURCE_DIR}/header/stdcoll/operators.h
      ${CMAKE_CURRENT_SOURCE_DIR}/impl/stdcoll/operators.c)
 
+file(GLOB STDCOLL_ITR ${CMAKE_CURRENT_SOURCE_DIR}/header/stditr/*.h
+     ${CMAKE_CURRENT_SOURCE_DIR}/impl/stditr/*.c)
+
 add_library(stdcoll STATIC ${STDCOLL})
 add_library(stdcoll_interface_st STATIC ${STDCOLL_INTERFACE})
 add_library(stdcoll_interface STATIC ${STDCOLL_INTERFACE})
@@ -48,22 +51,31 @@ add_library(stdcoll_linked_list_sh SHARED ${STDCOLL_INTERFACE_LINKED_LIST_IMPL})
 
 add_library(stdcoll_operators_st STATIC ${STDCOLL_OPERATORS})
 
-target_link_libraries(stdcoll_list PUBLIC stdcoll)
+add_library(stdcoll_itr STATIC ${STDCOLL_ITR})
+
+target_link_libraries(stdcoll PUBLIC stdcoll_itr)
+target_link_libraries(
+  stdcoll_list
+  PUBLIC stdcoll
+  PUBLIC stdcoll_itr)
 target_link_libraries(
   stdcoll_linked_list
   PUBLIC stdcoll_list
-  PUBLIC stdcoll_operators_st)
+  PUBLIC stdcoll_operators_st
+  PUBLIC stdcoll_itr)
 target_link_libraries(
   stdcoll_linked_list_st
   PUBLIC stdcoll_interface_st
   PRIVATE stdcoll_list
-  PRIVATE stdcoll_operators_st)
+  PRIVATE stdcoll_operators_st
+  PUBLIC stdcoll_itr)
 target_link_libraries(
   stdcoll_linked_list_sh
   PUBLIC stdcoll_interface_st
   PRIVATE stdcoll
   PRIVATE stdcoll_list
-  PRIVATE stdcoll_operators_st)
+  PRIVATE stdcoll_operators_st
+  PUBLIC stdcoll_itr)
 
 if(BUILD_TESTING)
   include(CTest)

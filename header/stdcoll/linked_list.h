@@ -41,4 +41,6 @@ stdlist * LinkedListSuper(stdllist *);
 
 stdcoll * LinkedListToCollection(stdllist *);
 
+stditr *LinkedListIterator(stdllist *list);
+
 #endif

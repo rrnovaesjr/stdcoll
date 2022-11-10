@@ -51,9 +51,27 @@ void should_update_linked_list_and_query_elements()
     ASSERTI_EQ((int)LinkedListSize(llist), 0);
 }
 
+void should_iterate_over_list()
+{
+    int i;
+    for (i = 0; i < 10000; i++)
+    {
+        ASSERT_TRUE(LinkedListAdd(llist, supply_int(i)));
+    }
+
+    stditr *llitr;
+    for (llitr = LinkedListIterator(llist), i = 0; IteratorHasNext(llitr); llitr = IteratorNext(llitr), i++)
+    {
+        ASSERTI_EQ(*(int *)IteratorGet(llitr), i);
+    }
+
+    IteratorDelete(llitr);
+}
+
 test_instance tests[] = {
     {should_initialize_linked_list, "should_initialize_linked_list"},
     {should_update_linked_list_and_query_elements, "should_update_linked_list_and_query_elements"},
+    {should_iterate_over_list, "should_iterate_over_list"},
     {NULL, NULL}};
 
 void (*before_all)(void) = NULL;

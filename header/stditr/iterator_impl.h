@@ -7,13 +7,14 @@ typedef struct stditr
 {
     void *m_itr_data;
     int (*m_IteratorHasNext)(const stditr *);
-    void *(*IteratorGet)(const stditr *);
+    void *(*m_IteratorGet)(const stditr *);
     stditr *(*m_IteratorNext)(stditr *);
+    void (*m_IteratorDelete)(stditr *);
 } stditr;
 
-stditr *_IteratorCreate(void *m_itr_data,
-                        int (*m_IteratorHasNext)(const stditr *),
-                        void *(*IteratorGet)(const stditr *),
-                        stditr * (*m_IteratorNext)(stditr *));
+stditr *_IteratorCreate(void *t_itr_data,
+                        int (*t_IteratorHasNext)(const stditr *),
+                        void *(*t_IteratorGet)(const stditr *),
+                        stditr * (*t_IteratorNext)(stditr *));
 
 #endif
