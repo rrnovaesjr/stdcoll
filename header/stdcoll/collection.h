@@ -2,12 +2,13 @@
 #define __STD_COLL_H__
 
 #include <stdio.h>
+#include "stditr/iterator.h"
 
 typedef struct stdcoll stdcoll;
 
 int CollectionAdd(stdcoll *, void *obj);
 
-void * CollectionRemove(stdcoll *, const void *obj);
+void *CollectionRemove(stdcoll *, const void *obj);
 
 void CollectionToArray(stdcoll *, void *output);
 
@@ -23,6 +24,8 @@ int CollectionContains(stdcoll *);
 
 void CollectionDelete(stdcoll *);
 
-void * CollectionCast(stdcoll *);
+void *CollectionCast(stdcoll *);
+
+stditr *CollectionIterator(stdcoll *);
 
 #endif

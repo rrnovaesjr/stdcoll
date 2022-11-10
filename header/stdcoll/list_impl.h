@@ -22,6 +22,7 @@ stdlist * _List(
     int (*t_AddAll)(stdcoll *, stdcoll *const),
     size_t (*t_Size)(stdcoll *),
     int (*t_Contains)(stdcoll *),
+    stditr *(*t_Iterator)(stdcoll *),
     void * (*t_GetAtIndex)(stdlist *std_list, const int idx),
     void * (*t_Front)(stdlist *std_list),
     void * (*t_Back)(stdlist *std_list),
