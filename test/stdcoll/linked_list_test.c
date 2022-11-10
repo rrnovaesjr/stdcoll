@@ -48,7 +48,19 @@ void should_update_linked_list_and_query_elements()
     ASSERT_SAME(LinkedListGetAtIndex(llist, 100), NULL);
     LinkedListClear(llist);
     ASSERT_TRUE(LinkedListIsEmpty(llist));
-    ASSERTI_EQ((int)LinkedListSize(llist), 0);
+    ASSERTI_EQ((int)LinkedListSize(llist), 0);    
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(1)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(2)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(3)));
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(4)));
+    ASSERTI_EQ((int)LinkedListSize(llist), 4);
+    void *value = LinkedListRemoveAtIndex(llist, 2);
+    ASSERT_TRUE(value);
+    free(value);
+    ASSERTI_EQ((int)LinkedListSize(llist), 3);
+    ASSERT_TRUE(LinkedListAdd(llist, supply_int(2)));
+    ASSERTI_EQ((int)LinkedListSize(llist), 4);
+    LinkedListClear(llist);
 }
 
 void should_iterate_over_list()
@@ -64,7 +76,25 @@ void should_iterate_over_list()
     {
         ASSERTI_EQ(*(int *)IteratorGet(llitr), i);
     }
+    IteratorDelete(llitr);
 
+    for (llitr = LinkedListIterator(llist); IteratorHasNext(llitr);)
+    {
+        if (*(int *)IteratorGet(llitr) % 2 == 0)
+        {
+            IteratorRemove(llitr);
+        }
+        else
+        {
+            llitr = IteratorNext(llitr);
+        }
+    }
+    IteratorDelete(llitr);
+
+    for (llitr = LinkedListIterator(llist); IteratorHasNext(llitr); llitr = IteratorNext(llitr))
+    {
+        ASSERT_TRUE(*(int *)IteratorGet(llitr) % 2 != 0);
+    }
     IteratorDelete(llitr);
 }
 

@@ -9,6 +9,8 @@ void *IteratorGet(const stditr *);
 
 stditr *IteratorNext(stditr *);
 
+stditr *IteratorRemove(stditr *);
+
 void IteratorDelete(stditr *);
 
 #endif

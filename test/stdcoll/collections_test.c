@@ -54,10 +54,11 @@ void should_iterate_over_collection()
     }
 
     stditr *llitr;
-    for (llitr = LinkedListIterator(llist), i = 0; IteratorHasNext(llitr); llitr = IteratorNext(llitr), i++)
+    for (llitr = CollectionIterator(llist), i = 0; IteratorHasNext(llitr); llitr = IteratorNext(llitr), i++)
     {
-        ASSERTI_EQ(*(int *)IteratorGet(llist), i);
+        ASSERTI_EQ(*(int *)IteratorGet(llitr), i);
     }
+    IteratorDelete(llitr);
 }
 
 test_instance tests[] = {
