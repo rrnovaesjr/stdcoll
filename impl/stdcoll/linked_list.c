@@ -347,6 +347,8 @@ inline stditr *LinkedListIterator(stdllist *list)
     stdllist_itr_data *itr = malloc(sizeof(stdllist_itr_data));
     itr->m_current = NULL;
     itr->m_llist = list;
+    itr->m_current = NULL;
+    itr->started = 0;
     return _IteratorCreate(itr,
                            _LinkedListIteratorHasNext,
                            _LinkedListIteratorGet,
