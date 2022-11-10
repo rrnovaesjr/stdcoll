@@ -288,17 +288,29 @@ typedef struct stdllist_itr_data
 {
     stdnode *m_current;
     stdllist *m_llist;
+    short started;
 } stdllist_itr_data;
+
+stdllist_itr_data *_GetOrCreateIterationData(stditr *itr)
+{
+    stdllist_itr_data *itr_data = itr->m_itr_data;
+    if (!itr_data->started)
+    {
+        itr_data->m_current = itr_data->m_llist->m_front;
+        itr_data->started = 1;
+    }
+    return itr_data;
+}
 
 int _LinkedListIteratorHasNext(const stditr *itr)
 {
-    stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
-    return itr_data->m_current != NULL;
+    stdllist_itr_data *itr_data = _GetOrCreateIterationData(itr);
+    return !(itr_data->m_current == NULL && itr_data->started);
 }
 
 void *_LinkedListIteratorGet(const stditr *itr)
 {
-    stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
+    stdllist_itr_data *itr_data = _GetOrCreateIterationData(itr);
     if (!itr_data->m_current)
     {
         return NULL;
@@ -308,7 +320,7 @@ void *_LinkedListIteratorGet(const stditr *itr)
 
 stditr *_LinkedListIteratorNext(stditr *itr)
 {
-    stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
+    stdllist_itr_data *itr_data = _GetOrCreateIterationData(itr);
     if (!itr_data->m_current)
     {
         return itr;
@@ -319,7 +331,7 @@ stditr *_LinkedListIteratorNext(stditr *itr)
 
 stditr *_LinkedListIteratorRemove(stditr *itr)
 {
-    stdllist_itr_data *itr_data = (stdllist_itr_data *)itr->m_itr_data;
+    stdllist_itr_data *itr_data = _GetOrCreateIterationData(itr);
     stdnode *t = itr_data->m_current;
     if (_LinkedListIteratorHasNext(itr))
     {
@@ -333,7 +345,7 @@ stditr *_LinkedListIteratorRemove(stditr *itr)
 inline stditr *LinkedListIterator(stdllist *list)
 {
     stdllist_itr_data *itr = malloc(sizeof(stdllist_itr_data));
-    itr->m_current = list->m_front;
+    itr->m_current = NULL;
     itr->m_llist = list;
     return _IteratorCreate(itr,
                            _LinkedListIteratorHasNext,

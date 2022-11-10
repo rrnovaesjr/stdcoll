@@ -29,6 +29,9 @@ target_link_libraries(assert PUBLIC assertions)
 add_executable(linked_list_test
                ${CMAKE_CURRENT_SOURCE_DIR}/stdcoll/linked_list_test.c)
 
+add_executable(linked_list_iterator_test
+               ${CMAKE_CURRENT_SOURCE_DIR}/stdcoll/linked_list_iterator_test.c)
+
 add_executable(linked_list_st_as_coll_test
                ${CMAKE_CURRENT_SOURCE_DIR}/stdcoll/collections_test.c)
 
@@ -37,6 +40,11 @@ add_executable(linked_list_sh_as_coll_test
 
 target_link_libraries(
   linked_list_test
+  PUBLIC test_suite
+  PUBLIC stdcoll_linked_list)
+
+target_link_libraries(
+  linked_list_iterator_test
   PUBLIC test_suite
   PUBLIC stdcoll_linked_list)
 
@@ -53,5 +61,6 @@ target_link_libraries(
   PUBLIC stdcoll_linked_list_sh)
 
 add_test(NAME linked_list_test COMMAND linked_list_test)
+add_test(NAME linked_list_iterator_test COMMAND linked_list_iterator_test)
 add_test(NAME linked_list_st_as_coll_test COMMAND linked_list_st_as_coll_test)
 add_test(NAME linked_list_sh_as_coll_test COMMAND linked_list_sh_as_coll_test)

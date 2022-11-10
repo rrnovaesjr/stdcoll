@@ -8,17 +8,17 @@ stdcoll *llist;
 
 const char description[] = "linked_list_test";
 
-void initialize_list()
+void InitializeList()
 {
     llist = SupplyCollection();
 }
 
-void destroy_list()
+void DestroyList()
 {
     CollectionDelete(llist);
 }
 
-int *supply_int(int n)
+int *SupplyInt(int n)
 {
     int *pn = malloc(sizeof(int));
     *pn = n;
@@ -34,10 +34,10 @@ void should_initialize_collection()
 void should_update_collection_and_query_elements()
 {
     ASSERT_TRUE(CollectionIsEmpty(llist));
-    ASSERT_TRUE(CollectionAdd(llist, supply_int(1)));
-    ASSERT_TRUE(CollectionAdd(llist, supply_int(2)));
-    ASSERT_TRUE(CollectionAdd(llist, supply_int(3)));
-    ASSERT_TRUE(CollectionAdd(llist, supply_int(4)));
+    ASSERT_TRUE(CollectionAdd(llist, SupplyInt(1)));
+    ASSERT_TRUE(CollectionAdd(llist, SupplyInt(2)));
+    ASSERT_TRUE(CollectionAdd(llist, SupplyInt(3)));
+    ASSERT_TRUE(CollectionAdd(llist, SupplyInt(4)));
     ASSERTI_EQ((int)CollectionSize(llist), 4);
     ASSERT_FALSE(CollectionIsEmpty(llist));
     CollectionClear(llist);
@@ -50,7 +50,7 @@ void should_iterate_over_collection()
     int i;
     for (i = 0; i < 10000; i++)
     {
-        ASSERT_TRUE(CollectionAdd(llist, supply_int(i)));
+        ASSERT_TRUE(CollectionAdd(llist, SupplyInt(i)));
     }
 
     stditr *llitr;
@@ -90,6 +90,6 @@ void (*before_all)(void) = NULL;
 
 void (*after_all)(void) = NULL;
 
-void (*before_each[])(void) = {initialize_list, NULL};
+void (*before_each[])(void) = {InitializeList, NULL};
 
-void (*after_each[])(void) = {destroy_list, NULL};
+void (*after_each[])(void) = {DestroyList, NULL};
