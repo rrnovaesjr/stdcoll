@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include "assert/assert.h"
 
-typedef struct test_instance {
+typedef struct test_instance
+{
     void (*f)(void);
     const char *description;
 } test_instance;
