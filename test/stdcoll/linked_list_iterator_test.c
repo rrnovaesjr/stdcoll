@@ -7,7 +7,7 @@
 stdllist *llist;
 stditr *itr;
 
-const char description[] = "linked_list_test";
+const char description[] = "linked_list_iterator_test";
 
 void InitializeList()
 {

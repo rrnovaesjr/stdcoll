@@ -6,7 +6,7 @@
 
 stdcoll *llist;
 
-const char description[] = "linked_list_test";
+const char description[] = "collections_test";
 
 void InitializeList()
 {
