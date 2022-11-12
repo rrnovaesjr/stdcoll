@@ -22,6 +22,4 @@ extern const char description[];
 
 extern test_instance tests[];
 
-int run_assertable_test(test_instance test);
-
 #endif
