@@ -1,5 +1,5 @@
-#ifndef __ASSERTION_LIST_H__
-#define __ASSERTION_LIST_H__
+#ifndef __ASSERTIONS_H__
+#define __ASSERTIONS_H__
 
 #include <stdio.h>
 

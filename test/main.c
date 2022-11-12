@@ -4,7 +4,7 @@
 #include "log/print.h"
 #include "assertions/assertions.h"
 
-int for_each_test(test_instance t)
+int ForEachTest(test_instance t)
 {
     void (**b)(void) = before_each;
     while ((*b) != NULL)
@@ -34,8 +34,10 @@ int for_each_test(test_instance t)
     return res;
 }
 
-int for_suite()
+int ForSuite()
 {
+    LOG_INFO(stdout, "SUITE: %s\n\n", description);
+
     if (before_all)
         before_all();
 
@@ -45,7 +47,7 @@ int for_suite()
 
     while (tests[i].f != NULL)
     {
-        res |= for_each_test(tests[i]);
+        res |= ForEachTest(tests[i]);
         i++;
     }
 
@@ -58,7 +60,7 @@ int for_suite()
 int main()
 {
     AssertionsInit();
-    int res = for_suite();
+    int res = ForSuite();
     if (!res)
     {
         LOG_OK(stdout, "\nTEST RESULTS: PASS\n");
