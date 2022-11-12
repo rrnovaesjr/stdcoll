@@ -2,21 +2,21 @@
 #include <stdlib.h>
 #include "assert/assert.h"
 #include "suite/suite.h"
-#include "stdcoll/linked_list.h"
+#include "stdcoll/collections.h"
 
-stdllist *list;
+stdcoll *coll;
 stditr *t;
 
 const char description[] = "linked_list_iterator_test";
 
 void InitializeList()
 {
-    list = LinkedList();
+    coll = SupplyCollection();
 }
 
 void InitializeIterator()
 {
-    t = LinkedListIterator(list);
+    t = CollectionIterator(coll);
 }
 
 void DestroyIterator()
@@ -26,7 +26,7 @@ void DestroyIterator()
 
 void DestroyList()
 {
-    LinkedListDelete(list);
+    CollectionDelete(coll);
 }
 
 int *SupplyInt(int n)
@@ -36,13 +36,13 @@ int *SupplyInt(int n)
     return pn;
 }
 
-void should_iterate_over_linked_list()
+void should_iterate_over_collection()
 {
     int i;
     const int size = 100000;
     for (i = 0; i < size; i++)
     {
-        LinkedListAdd(list, SupplyInt(i));
+        CollectionAdd(coll, SupplyInt(i));
     }
 
     for (i = 0; i < size; t = IteratorNext(t), i++)
@@ -54,14 +54,14 @@ void should_iterate_over_linked_list()
     ASSERT_FALSE(IteratorHasNext(t));
 }
 
-void should_remove_elements_from_list_using_iterator()
+void should_remove_items_from_collection_using_iterator()
 {
     const int total_size = 100000;
     const int expected_size = total_size / 2;
     int i;
     for (i = 0; i < total_size; i++)
     {
-        ASSERT_TRUE(LinkedListAdd(list, SupplyInt(i)));
+        ASSERT_TRUE(CollectionAdd(coll, SupplyInt(i)));
     }
 
     while (IteratorHasNext(t))
@@ -76,12 +76,12 @@ void should_remove_elements_from_list_using_iterator()
         }
     }
 
-    ASSERTI_EQ((int)LinkedListSize(list), expected_size);
+    ASSERTI_EQ((int)CollectionSize(coll), expected_size);
 }
 
 test_instance tests[] = {
-    {should_iterate_over_linked_list, "should_iterate_over_linked_list"},
-    {should_remove_elements_from_list_using_iterator, "should_remove_elements_from_list_using_iterator"},
+    {should_iterate_over_collection, "should_iterate_over_collection"},
+    {should_remove_items_from_collection_using_iterator, "should_remove_items_from_collection_using_iterator"},
     {NULL, NULL}};
 
 void (*before_all)(void) = NULL;

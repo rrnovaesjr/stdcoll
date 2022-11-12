@@ -4,18 +4,18 @@
 #include "suite/suite.h"
 #include "stdcoll/linked_list.h"
 
-stdllist *llist;
+stdllist *list;
 
 const char description[] = "linked_list_test";
 
 void InitializeList()
 {
-    llist = LinkedList();
+    list = LinkedList();
 }
 
 void DestroyList()
 {
-    LinkedListDelete(llist);
+    LinkedListDelete(list);
 }
 
 int *SupplyInt(int n)
@@ -27,40 +27,40 @@ int *SupplyInt(int n)
 
 void should_initialize_linked_list()
 {
-    ASSERTI_EQ(LinkedListSize(llist), (size_t)0);
-    ASSERT_TRUE(LinkedListIsEmpty(llist));
+    ASSERTI_EQ(LinkedListSize(list), (size_t)0);
+    ASSERT_TRUE(LinkedListIsEmpty(list));
 }
 
 void should_update_linked_list_and_query_elements()
 {
-    ASSERT_TRUE(LinkedListIsEmpty(llist));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(1)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(2)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(3)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(4)));
-    ASSERTI_EQ((int)LinkedListSize(llist), 4);
-    ASSERT_FALSE(LinkedListIsEmpty(llist));
-    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(llist, 0), 1);
-    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(llist, 1), 2);
-    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(llist, 2), 3);
-    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(llist, 3), 4);
-    ASSERT_SAME(LinkedListGetAtIndex(llist, -1), NULL);
-    ASSERT_SAME(LinkedListGetAtIndex(llist, 100), NULL);
-    LinkedListClear(llist);
-    ASSERT_TRUE(LinkedListIsEmpty(llist));
-    ASSERTI_EQ((int)LinkedListSize(llist), 0);    
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(1)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(2)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(3)));
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(4)));
-    ASSERTI_EQ((int)LinkedListSize(llist), 4);
-    void *value = LinkedListRemoveAtIndex(llist, 2);
+    ASSERT_TRUE(LinkedListIsEmpty(list));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(1)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(2)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(3)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(4)));
+    ASSERTI_EQ((int)LinkedListSize(list), 4);
+    ASSERT_FALSE(LinkedListIsEmpty(list));
+    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(list, 0), 1);
+    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(list, 1), 2);
+    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(list, 2), 3);
+    ASSERTI_EQ(*(int *)LinkedListGetAtIndex(list, 3), 4);
+    ASSERT_SAME(LinkedListGetAtIndex(list, -1), NULL);
+    ASSERT_SAME(LinkedListGetAtIndex(list, 100), NULL);
+    LinkedListClear(list);
+    ASSERT_TRUE(LinkedListIsEmpty(list));
+    ASSERTI_EQ((int)LinkedListSize(list), 0);    
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(1)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(2)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(3)));
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(4)));
+    ASSERTI_EQ((int)LinkedListSize(list), 4);
+    void *value = LinkedListRemoveAtIndex(list, 2);
     ASSERT_TRUE(value != NULL);
     free(value);
-    ASSERTI_EQ((int)LinkedListSize(llist), 3);
-    ASSERT_TRUE(LinkedListAdd(llist, SupplyInt(2)));
-    ASSERTI_EQ((int)LinkedListSize(llist), 4);
-    LinkedListClear(llist);
+    ASSERTI_EQ((int)LinkedListSize(list), 3);
+    ASSERT_TRUE(LinkedListAdd(list, SupplyInt(2)));
+    ASSERTI_EQ((int)LinkedListSize(list), 4);
+    LinkedListClear(list);
 }
 
 test_instance tests[] = {
