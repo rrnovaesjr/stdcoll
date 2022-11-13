@@ -43,21 +43,22 @@ int AssertionFail(const char *file, const int line, char *msg)
 
 void AssertionsLogAll(FILE *output)
 {
-    size_t n = LinkedListSize(assertions);
-    int i;
-    if (n > 0)
+    stditr *t = LinkedListIterator(assertions);
+    if (IteratorHasNext(t))
     {
         LOG_INFO(output, "\nFailed assertions:\n");
     }
-    for (i = 0; i < (int)n; i++)
+    for (; IteratorHasNext(t); t = IteratorNext(t))
     {
-        assertion *assert = LinkedListGetAtIndex(assertions, i);
+        assertion *assert = IteratorGet(t);
 
         LOG_ERROR(output, "\n\t%s:\n\t  At %s:%d:\n\t    %s\n", assert->m_test_description,
                   assert->m_file,
                   assert->line,
                   assert->m_assertion_message);
     }
+
+    IteratorDelete(t);
 }
 
 void AssertionsFinalize()
